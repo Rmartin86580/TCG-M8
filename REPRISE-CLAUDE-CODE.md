@@ -320,6 +320,22 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
 
+**Appli installable, SANS mode hors connexion (27/10/2026).** Demande explicite de l'utilisateur :
+icône + plein écran oui, hors connexion non. Fichiers statiques à la racine (non générés par
+`build_html.py`) : `manifest.webmanifest` (nom, icônes, plein écran, couleurs), `sw.js`, dossier
+`icons/` (icônes dessinées depuis `logo/logo.png` sur le fond de l'appli, dont une « maskable » et
+`apple-touch-icon.png`). `sw.js` est un service worker **volontairement minimal** : gestionnaire
+`fetch` vide, aucun cache, il purge les caches `m8-*` d'une éventuelle version précédente ; il ne
+sert qu'à satisfaire les navigateurs Android qui exigent un service worker pour proposer
+« Installer l'application ». `build_html.py` ajoute les balises dans `<head>` (manifest,
+apple-touch-icon, favicon — `logo/icone.png` n'a jamais existé), enregistre le service worker
+(seulement en http/https, donc pas en `file://`) et ajoute la section « Appli sur ton téléphone »
+dans la roue crantée (bouton Installer si le navigateur le propose, sinon mode d'emploi
+iPhone/Android). Une première version avec cache des images (mode hors connexion testé et
+fonctionnel, 218 Mo) a été écrite puis retirée : si l'envie revient, c'est un cache d'abord pour
+`images-cartes/` et `logo/` + réseau d'abord pour la page, avec une constante de version de cache
+à changer quand on remplace des images. Pas testé sur un vrai téléphone.
+
 **Reverse sans normale (27/10/2026).** On peut posséder la reverse d'une carte sans en avoir la
 normale. `statutOf` la classait à tort « complète » ; elle est maintenant « partielle » (pastille
 orange) tant que les deux versions n'y sont pas, pour les cartes qui ont une reverse. Nouvelle

@@ -31,8 +31,12 @@ HTML = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#151020">
-<link rel="apple-touch-icon" href="logo/icone.png">
-<link rel="icon" href="logo/icone.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ma collection">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon.png">
 <title>Ma collection — Tout Commence Ici</title>
 <style>
 :root{
@@ -1456,12 +1460,30 @@ function resetAll(){
   store={}; save(); render(); toast("Données effacées");
 }
 
+/* ---------- appli installable (icône + plein écran) ---------- */
+let installEvt=null;
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); installEvt=e; });
+window.addEventListener("appinstalled",()=>{ installEvt=null; });
+if("serviceWorker" in navigator && /^https?:$/.test(location.protocol)){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); });
+}
+const isStandalone=()=>(window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone===true;
+
 /* ---------- réglages (roue crantée) ---------- */
 function openSettings(){
   current=null;
   const p=document.getElementById("panel");
   p.style.setProperty("--essence","var(--neutre)");
   const inApp=!document.getElementById("app").hidden;
+  const pwa = !/^https?:$/.test(location.protocol) ? "" : `
+    <section class="pblock"><h3>Appli sur ton téléphone</h3>
+      <p class="hint" style="margin:0">${isStandalone()
+        ? "Tu utilises déjà l'appli installée."
+        : (installEvt
+          ? "Tu peux installer ce site comme une appli, avec son icône."
+          : "iPhone / iPad (Safari) : bouton Partager, puis « Sur l'écran d'accueil ». Android (Chrome) : menu ⋮, puis « Installer l'application ».")}</p>
+      ${installEvt && !isStandalone() ? `<div class="setbtns"><button class="btn" id="stInstall">Installer l'appli</button></div>` : ""}
+    </section>`;
   const adm = adminUnlocked ? `
     <section class="pblock"><h3>Administration</h3><div class="setbtns">
       ${inApp?`<button class="btn" id="stAdminCards">Gérer les cartes de cette extension</button>`:""}
@@ -1486,6 +1508,7 @@ function openSettings(){
         <button class="btn" id="stMiss">Copier les manquantes</button>
         <button class="btn" id="stDup">Copier les doublons</button>
       </div></section>
+      ${pwa}
       ${adm}
       <section class="pblock"><h3>Zone dangereuse</h3>
         <button class="btn warn" id="stReset">Tout effacer</button>
@@ -1500,6 +1523,7 @@ function openSettings(){
   on("stMiss",copyMissing);
   on("stDup",copyDup);
   on("stReset",()=>{ resetAll(); });
+  on("stInstall",async()=>{ if(!installEvt) return; installEvt.prompt(); try{ await installEvt.userChoice; }catch(e){} installEvt=null; openSettings(); });
   on("stAdminCards",()=>{ close(); setTab("admin"); });
   on("stNewExt",()=>openExtForm(null));
   on("stAdminOff",()=>{ toggleAdmin(); openSettings(); });

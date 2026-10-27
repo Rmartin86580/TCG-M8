@@ -28,6 +28,17 @@ Les autres fichiers (`build_html.py`, `build4.py`, le classeur Excel) servent se
 Envoie ce lien à tes amis. Pour mettre à jour le site plus tard : régénère `index.html`
 (`python build_html.py`), puis dans GitHub Desktop fais « Commit » et « Push origin ».
 
+## Installer le site comme une appli (téléphone)
+
+- **iPhone / iPad (Safari)** : bouton Partager, puis « Sur l'écran d'accueil ».
+- **Android (Chrome)** : menu ⋮, puis « Installer l'application ».
+
+L'icône s'ouvre ensuite en plein écran, sans barre de navigateur. Il n'y a pas de mode hors
+connexion : il faut du réseau pour ouvrir le site.
+
+Fichiers utilisés : `manifest.webmanifest`, `sw.js` (service worker minimal, il ne garde rien en
+mémoire), dossier `icons/`.
+
 ## Retrouver sa collection sur tous ses appareils
 
 Les données sont stockées dans le navigateur de chaque appareil. Pour les synchroniser :
