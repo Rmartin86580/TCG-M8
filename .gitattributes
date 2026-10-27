@@ -1,0 +1,4 @@
+# Ne jamais convertir les fins de ligne des fichiers binaires
+*.pdf binary
+*.png binary
+*.xlsx binary
