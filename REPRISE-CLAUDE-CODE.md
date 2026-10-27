@@ -318,6 +318,15 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
 
+**Barre d'outils refaite (27/10/2026).** Onglets Collection / Statistiques / Comparer en
+navigation soulignée (`.tabnav`) ; rangée 1 = recherche en pilule + bouton Filtres ; rangée 2 =
+tri, vue galerie/tableau en icônes SVG intégrées (aucune dépendance externe), curseur de taille
+`#sizeRange` (150–340, remplace les 3 boutons Grandes/Moyennes/Petites ; même clé `m8tcg.ui`),
+« Mode rapide » et « Ajouter » (seul bouton rose, classe `.btn.primary`). « Importer des amis »
+n'est plus à côté des onglets : il est dans l'onglet Comparer (`#addFriends` recréé dans
+`renderCompare`). `.tools` est maintenant une grille de deux `.toolrow` (`display:grid` dans
+`setTab`) ; sur mobile la 2e rangée (`.second`) passe en grille 2 colonnes.
+
 **Mise à jour 27/10/2026 — la synchronisation existe, autrement.** L'appli est publiée via
 GitHub Pages (voir `README.md`) et synchronise la collection par un **gist secret** du compte
 GitHub de l'utilisateur (bouton « Synchroniser » dans le pied de page). Aucun serveur. Code :
@@ -337,8 +346,13 @@ bloc « synchronisation » de `build_html.py` (remplace l'ancien `pull()/push()`
 - Premier branchement d'un appareil : gist existant retrouvé par son nom de fichier ; appareil
   vide → récupération directe, appareil déjà rempli → même panneau de choix.
 - Testé le 27/10/2026 avec un faux serveur GitHub dans le navigateur (création, envoi auto,
-  deuxième appareil, jeton refusé, conflit dans les deux sens, désactivation). **Pas testé
-  contre le vrai GitHub** : à vérifier une première fois avec un vrai jeton.
+  deuxième appareil, jeton refusé, conflit dans les deux sens, désactivation). Confirmé
+  fonctionnel par l'utilisateur avec le vrai GitHub le 27/10/2026.
+- Publication : dépôt https://github.com/Rmartin86580/TCG-M8 (branche `main`), site sur
+  https://rmartin86580.github.io/TCG-M8/ (GitHub Pages, racine). Le dépôt local est
+  initialisé dans ce dossier (identité git locale `Rmartin86580`, e-mail noreply). Pour
+  publier une modification : `python build_html.py` (régénère `index.html`), puis
+  `git add -A`, `git commit`, `git push`.
 - Historique : chaque envoi crée une révision du gist (consultable sur gist.github.com), ce
   qui sert de filet de sécurité si une version est écrasée par erreur.
 
