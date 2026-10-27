@@ -320,6 +320,41 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
 
+**Ajout par booster : essayé puis retiré (27/10/2026).** Trois versions ont été construites et
+testées dans le navigateur (saisie de numéros dans un champ, grille de cartes à toucher proposée
+en maquette et refusée, saisie carte par carte avec pavé numérique et cases Reverse/Promo, liste
+puis « Ajouter à la collection » avec annulation) ; l'utilisateur a finalement demandé de
+**supprimer le mode booster**. Rien n'a jamais été publié. Le code est entièrement retiré : le site
+est redevenu identique à la version publiée (commit `cb432dd`). Pour cocher des cartes sur
+téléphone, il reste le « Mode rapide ». Une idée de scan par appareil photo + OCR (Tesseract.js,
+lecture du numéro `NNN/122`) a été expliquée mais **pas lancée** ; ne la reproposer que si
+l'utilisateur la redemande.
+
+**Vue classeur : essayée puis retirée (27/10/2026).** Pages de 9 (3×3) dans l'ordre du numéro,
+cases vides en pointillés ; l'utilisateur a jugé qu'elle « n'apporte rien ». Entièrement supprimée
+du code (pas de trace dans `build_html.py`). Ne pas la reproposer telle quelle.
+
+**Vue liste refaite (27/10/2026).** L'ancien tableau de 13 colonnes (N°, Nom, Rareté, Type, Essence,
+Norm., Rev., Reverse ?, État, Prix, Valeur, Emplacement, Statut) est remplacé par une liste de lignes
+(`renderList`, `rowHTML`, `bindRow`) : miniature, numéro, nom, rareté · essence avec point de
+couleur, puis **les mêmes cases que dans la fiche** (modèle voulu par l'utilisateur, capture à l'appui) :
+case « Normale » (= l'exemplaire du classeur, `qn` ≥ 1) avec un compteur « Doublons » − / + (= exemplaires
+en plus, `qn − 1`), idem pour « Reverse » (absente si la carte n'a pas de reverse) ; le compteur
+n'apparaît que si la case est cochée, décocher remet la version à 0. Statut en mots (`versionState`).
+À la demande de l'utilisateur, la liste n'affiche NI le texte « — celle du classeur » NI l'étiquette rose
+« N en double » (ils existaient dans une première version) ; la fiche garde son libellé
+« Normale — celle du classeur ». En haut :
+Mise en page compacte à la demande de l'utilisateur (« tout en ligne pour qu'elle soit plus petite ») :
+sur PC chaque carte tient sur UNE ligne d'environ 60 px (miniature 34 px, `001 Nom` sur la même ligne, puis
+Normale + Doublons et Reverse + Doublons côte à côte, puis le statut) ; sous 960 px Normale et Reverse
+se superposent (≈ 69 px) ; sur mobile (≤ 640 px) ≈ 146 px avec Normale / Reverse en deux colonnes.
+« N doublons sur M cartes » + rappel « un doublon = un exemplaire en plus du premier ». Un clic sur la
+ligne ouvre la fiche. Prix, valeur, état et emplacement ne sont plus dans la liste (ils restent
+dans la fiche et dans l'export CSV). Ajouts liés : tri « Par doublons » et filtre de statut
+« Avec doublons » (clé `doublon`, ajouté en OU aux autres statuts), valables aussi pour la galerie.
+Le + / − met à jour la ligne sans re-rendre toute la liste (sauf si un filtre de statut ou le tri
+par valeur / doublons est actif).
+
 **Appli installable, SANS mode hors connexion (27/10/2026).** Demande explicite de l'utilisateur :
 icône + plein écran oui, hors connexion non. Fichiers statiques à la racine (non générés par
 `build_html.py`) : `manifest.webmanifest` (nom, icônes, plein écran, couleurs), `sw.js`, dossier
@@ -334,7 +369,8 @@ dans la roue crantée (bouton Installer si le navigateur le propose, sinon mode 
 iPhone/Android). Une première version avec cache des images (mode hors connexion testé et
 fonctionnel, 218 Mo) a été écrite puis retirée : si l'envie revient, c'est un cache d'abord pour
 `images-cartes/` et `logo/` + réseau d'abord pour la page, avec une constante de version de cache
-à changer quand on remplace des images. Pas testé sur un vrai téléphone.
+à changer quand on remplace des images. Publié le 27/10/2026 et confirmé fonctionnel par
+l'utilisateur sur son téléphone (icône, plein écran).
 
 **Reverse sans normale (27/10/2026).** On peut posséder la reverse d'une carte sans en avoir la
 normale. `statutOf` la classait à tort « complète » ; elle est maintenant « partielle » (pastille
@@ -381,7 +417,11 @@ Un point rose sur la roue signale un souci de synchro (jeton refusé, choix de v
 navigation soulignée (`.tabnav`) ; rangée 1 = recherche en pilule + bouton Filtres ; rangée 2 =
 tri, vue galerie/tableau en icônes SVG intégrées (aucune dépendance externe), curseur de taille
 `#sizeRange` (150–340, remplace les 3 boutons Grandes/Moyennes/Petites ; même clé `m8tcg.ui`),
-« Mode rapide » et « Ajouter » (seul bouton rose, classe `.btn.primary`). « Importer des amis »
+Plus de bouton « Mode rapide » (supprimé le 27/10/2026 à la demande de l'utilisateur, avec son
+bandeau, la variable `quick` et `toggleQuick` : un clic sur une carte ouvre toujours la fiche, la
+case « Normale/Reverse » de la vignette coche). Le bouton « Ajouter » (créer une carte) a été retiré
+de la barre d'outils le 27/10/2026 : on crée une carte uniquement depuis l'administration (roue crantée → « Gérer les cartes de
+cette extension » → « Ajouter une carte à … », `#adminAdd`). « Importer des amis »
 n'est plus à côté des onglets : il est dans l'onglet Comparer (`#addFriends` recréé dans
 `renderCompare`). `.tools` est maintenant une grille de deux `.toolrow` (`display:grid` dans
 `setTab`) ; sur mobile la 2e rangée (`.second`) passe en grille 2 colonnes.

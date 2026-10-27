@@ -152,7 +152,6 @@ h1 span{color:var(--dim); font-weight:400}
 /* ---------- barre d'outils ---------- */
 .tools{max-width:1400px; margin:0 auto; padding:14px 18px; display:grid; gap:12px}
 .toolrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-.toolrow .spacer{flex:1 1 0}
 .field{position:relative; flex:1 1 auto; min-width:0}
 .field input{
   width:100%; background:var(--surface); border:1px solid var(--line);
@@ -176,14 +175,11 @@ h1 span{color:var(--dim); font-weight:400}
 .sizectl .ic.big{width:20px; height:20px}
 .sizectl input[type=range]{width:110px; accent-color:var(--rose); cursor:pointer}
 @media (max-width:640px){
-  .toolrow .spacer{display:none}
   .toolrow .btn.withic{flex:1 1 0; justify-content:center}
   .toolrow .field{flex:1 1 0}
   .toolrow .btn#toggleF{flex:0 0 auto}
   .toolrow.second{display:grid; grid-template-columns:1fr auto; gap:10px}
   .toolrow.second #sort{min-width:0}
-  .toolrow.second #quickMode{order:3}
-  .toolrow.second #addCard{order:4}
   .toolrow.second .sizectl{order:5; grid-column:1 / -1}
   .sizectl input[type=range]{flex:1 1 auto; width:auto}
 }
@@ -208,6 +204,51 @@ select{background:var(--surface); border:1px solid var(--line); border-radius:va
 }
 .chip[aria-pressed=true]{background:var(--surface-2); color:var(--ink); border-color:var(--dim); box-shadow:var(--shadow-sm)}
 .dot{width:9px; height:9px; border-radius:50%; background:currentColor; flex:none; box-shadow:0 0 5px -1px currentColor}
+
+/* ---------- vue liste ---------- */
+.lsum{margin:0 0 10px; color:var(--muted); font-size:13.5px}
+.lsum b{color:var(--ink); font-weight:600}
+.lsum .hint{display:block; margin:2px 0 0; color:var(--dim); font-size:12px}
+.llist{border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+  background:linear-gradient(160deg, var(--bg-2), var(--surface) 130%); box-shadow:var(--shadow-md), var(--shadow-inset)}
+.lrow{display:grid; grid-template-columns:34px minmax(150px,1fr) auto 104px; gap:16px; align-items:center;
+  padding:6px 14px 6px 11px; border-top:1px solid var(--line); border-left:3px solid var(--essence,var(--neutre)); cursor:pointer}
+.lrow:first-child{border-top:0}
+.lrow:hover{background:rgba(255,255,255,.03)}
+.lth{width:34px; aspect-ratio:5/7; border-radius:4px; overflow:hidden; background:var(--bg-2); display:grid; place-items:center}
+.lth img{width:100%; height:100%; object-fit:cover; display:block}
+.lth .ph{font-size:10px; color:var(--dim)}
+.lrow:not(.owned) .lth img{filter:grayscale(1) brightness(.55)}
+.linfo{display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:8px; align-items:baseline; min-width:0}
+.lnum{font-family:var(--display); color:var(--dim); font-size:12px; font-variant-numeric:tabular-nums}
+.lname{font-weight:500; font-size:14.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.lsub{grid-column:1 / -1; color:var(--muted); font-size:12px; display:flex; align-items:center; gap:6px}
+.lctl{display:grid; grid-template-columns:240px 240px; gap:6px 14px; align-items:center}
+.lgrp{display:flex; align-items:center; justify-content:space-between; gap:10px}
+.lgrp .own{font-size:13.5px; color:var(--ink); white-space:nowrap}
+.lgrp .own input{width:20px; height:20px}
+.ldups{display:inline-flex; align-items:center; gap:5px; color:var(--dim); font-size:12px}
+.ldups .llab{margin-right:1px}
+.ldups button{width:26px; height:26px; border-radius:7px; background:var(--surface); border:1px solid var(--line);
+  color:var(--muted); cursor:pointer; font-size:15px; line-height:1; box-shadow:var(--shadow-sm)}
+.ldups button:hover:not([disabled]){color:var(--ink); border-color:var(--dim)}
+.ldups button:active:not([disabled]){transform:scale(.92)}
+.ldups button[disabled]{opacity:.3; cursor:default}
+.ldups output{min-width:20px; text-align:center; font-family:var(--display); font-size:15px; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.lst{display:flex; flex-direction:column; gap:5px; align-items:flex-start}
+@media (max-width:960px){
+  .lrow{grid-template-columns:34px minmax(0,1fr) auto 96px; gap:12px}
+  .lctl{grid-template-columns:240px; gap:4px}
+}
+@media (max-width:640px){
+  .lrow{grid-template-columns:36px minmax(0,1fr); gap:4px 12px; padding:8px 10px}
+  .lth{grid-row:1 / span 2; width:36px}
+  .linfo{grid-column:2; grid-row:1}
+  .lst{grid-column:2; grid-row:2}
+  .lctl{grid-column:1 / -1; grid-row:3; grid-template-columns:1fr 1fr; gap:8px 12px; margin-top:2px}
+  .lgrp{flex-direction:column; align-items:flex-start; gap:6px}
+}
 
 /* ---------- tableau de bord ---------- */
 .tabs{max-width:1400px; margin:0 auto; padding:8px 18px 0}
@@ -422,10 +463,6 @@ select.tag.ess option{background:var(--surface-2); color:var(--ink)}
 .btn:active{transform:translateY(0)}
 .btn.warn:hover{color:var(--warn); border-color:var(--warn)}
 .btn[aria-pressed=true]{color:var(--ink); border-color:var(--rose); box-shadow:0 0 0 1px var(--rose), var(--shadow-sm)}
-.quickbar{max-width:1400px; margin:0 auto; padding:0 18px 14px; color:var(--rose); font-size:13px}
-.quickbar[hidden]{display:none}
-main.quick .card{cursor:pointer}
-main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
 .gear{width:40px; height:40px; border-radius:50%; flex:none; display:grid; place-items:center; cursor:pointer;
   background:linear-gradient(160deg, var(--surface-2), var(--surface) 130%); border:1px solid var(--line);
   color:var(--muted); box-shadow:var(--shadow-sm), var(--shadow-inset);
@@ -498,6 +535,7 @@ main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
       <option value="n">Par numéro</option>
       <option value="nom">Par nom</option>
       <option value="rarete">Par rareté</option>
+      <option value="dup">Par doublons</option>
       <option value="val">Par valeur estimée</option>
     </select>
     <div class="seg">
@@ -511,17 +549,7 @@ main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
       <input id="sizeRange" type="range" min="150" max="340" step="10" value="230" aria-label="Taille des cartes">
       <svg class="ic big" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/></svg>
     </label>
-    <span class="spacer"></span>
-    <button class="btn withic" id="quickMode" aria-pressed="false">
-      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg>
-      Mode rapide</button>
-    <button class="btn primary withic" id="addCard">
-      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-      Ajouter</button>
   </div>
-</div>
-<div class="quickbar" id="quickbar" hidden>
-  Mode rapide actif — touche une carte pour la cocher (encore pour la décocher).
 </div>
 
 <div class="filters" id="filters" hidden>
@@ -926,7 +954,7 @@ function goHome(){
 }
 
 /* ---------- filtres ---------- */
-let view="grid", sortBy="n", query="", quick=false;
+let view="grid", sortBy="n", query="";
 let FRIENDS=[];
 let fSt=new Set(), fRa=new Set(), fEs=new Set();
 
@@ -940,7 +968,7 @@ function chip(host, label, active, onclick, color){
 }
 function buildFilters(){
   const st=document.getElementById("fStatus"); st.innerHTML="";
-  [["manquante","Manquantes"],["partielle","Une version manque"],["complete","Complètes"]]
+  [["manquante","Manquantes"],["partielle","Une version manque"],["complete","Complètes"],["doublon","Avec doublons"]]
     .forEach(([k,l])=>chip(st,l,fSt.has(k),()=>{fSt.has(k)?fSt.delete(k):fSt.add(k); render();}));
   const ra=document.getElementById("fRarete"); ra.innerHTML="";
   RARS.forEach(r=>chip(ra,r,fRa.has(r),()=>{fRa.has(r)?fRa.delete(r):fRa.add(r); render();}));
@@ -955,7 +983,7 @@ function visible(){
     if(q && !(c.nom.toLowerCase().includes(q) || c.n.toLowerCase().includes(q))) return false;
     if(fRa.size && !fRa.has(c.rarete)) return false;
     if(fEs.size && !fEs.has(effEssence(c,store[c.n]))) return false;
-    if(fSt.size && !fSt.has(statut(c.n))) return false;
+    if(fSt.size && !(fSt.has(statut(c.n)) || (fSt.has("doublon") && dupOf(store,c.n)>0))) return false;
     return true;
   }).sort((a,b)=>{
     if(sortBy==="nom") return a.nom.localeCompare(b.nom,"fr");
@@ -963,6 +991,7 @@ function visible(){
       const d=(RARORDER[b.rarete]??-1)-(RARORDER[a.rarete]??-1);
       return d || a.n.localeCompare(b.n);
     }
+    if(sortBy==="dup") return dupOf(store,b.n)-dupOf(store,a.n) || a.n.localeCompare(b.n);
     if(sortBy==="val") return (+(S(b.n).val)||0)-(+(S(a.n).val)||0) || a.n.localeCompare(b.n);
     return a.n.localeCompare(b.n);
   });
@@ -1040,7 +1069,7 @@ function bindQty(el, c){
     lab.querySelector("input").onchange=ev=>{
       S(c.n)[lab.dataset.own] = ev.target.checked ? 1 : 0;
       save();
-      if(fSt.size || sortBy==="val"){ render(); return; }
+      if(fSt.size || sortBy==="val" || sortBy==="dup"){ render(); return; }
       paintQty(el,c); stats();
     };
   });
@@ -1049,14 +1078,11 @@ function bindQty(el, c){
       e.stopPropagation();
       const k=b.dataset.k;
       S(c.n)[k]=Math.max(1,(+S(c.n)[k]||1)+(+b.dataset.d));
-      save(); paintQty(el,c); stats();
+      save();
+      if(fSt.has("doublon") || sortBy==="dup"){ render(); return; }
+      paintQty(el,c); stats();
     };
   });
-}
-function toggleQuick(c){
-  const s=S(c.n);
-  s.qn = (+s.qn||0)>0 ? 0 : 1;
-  save(); render();
 }
 function paintQty(el, c){
   el.querySelector(".qty").innerHTML=qtyHTML(c);
@@ -1068,6 +1094,64 @@ function paintQty(el, c){
 }
 
 /* ---------- rendu ---------- */
+/* ---------- vue liste ---------- */
+function listSummaryHTML(list){
+  let tot=0, nb=0;
+  list.forEach(c=>{ const d=dupOf(store,c.n); tot+=d; if(d>0) nb++; });
+  return tot
+    ? `<b>${tot}</b> doublon${tot>1?"s":""} sur <b>${nb}</b> carte${nb>1?"s":""}`
+    : `Aucun doublon pour l'instant`;
+}
+function rowHTML(c){
+  const s=S(c.n), vs=versionState(store,c);
+  const st=statut(c.n), ess=effEssence(c,s);
+  /* même logique que la fiche : la case = l'exemplaire du classeur, « Doublons » = les exemplaires en plus */
+  const grp=(k,lab)=>{
+    const v=+s[k]||0, on=v>0, d=Math.max(0,v-1);
+    return `<div class="lgrp"><label class="own${on?" on":""}"><input type="checkbox" data-ck="${k}"${on?" checked":""}><span>${lab}</span></label>`
+      + (on?`<span class="ldups"><span class="llab">Doublons</span>
+          <button data-k="${k}" data-d="-1" aria-label="Un doublon de moins"${d===0?" disabled":""}>−</button>
+          <output>${d}</output>
+          <button data-k="${k}" data-d="1" aria-label="Un doublon de plus">+</button></span>`:"")
+      + `</div>`;
+  };
+  return `<div class="lrow${st!=="manquante"?" owned":""}" data-n="${c.n}" style="--essence:var(${ESS[ess]||"--neutre"})">
+    <div class="lth">${thumbHTML(c)}</div>
+    <div class="linfo"><span class="lnum">${c.n}</span><span class="lname">${cmpEsc(c.nom)}</span>
+      <span class="lsub"><span class="dot" style="color:var(${ESS[ess]||"--neutre"})"></span>${cmpEsc(c.rarete||"Rareté inconnue")}${ess?" · "+ess:""}</span></div>
+    <div class="lctl">${grp("qn","Normale")}${effRev(c,s)?grp("qr","Reverse"):""}</div>
+    <div class="lst"><span class="st ${vs.cls}">${vs.txt}</span></div>
+  </div>`;
+}
+function bindRow(row){
+  const n=row.dataset.n;
+  row.onclick=()=>open(n);
+  const changed=()=>{
+    save();
+    if(fSt.size || sortBy==="val" || sortBy==="dup"){ render(); return; }
+    const c=CARDS.find(x=>x.n===n);
+    const tmp=document.createElement("div"); tmp.innerHTML=rowHTML(c);
+    const fresh=tmp.firstElementChild; row.replaceWith(fresh); bindRow(fresh);
+    const sum=document.getElementById("lsumTxt"); if(sum) sum.innerHTML=listSummaryHTML(visible());
+    stats();
+  };
+  row.querySelectorAll(".lgrp").forEach(g=>g.onclick=e=>e.stopPropagation());
+  row.querySelectorAll("[data-ck]").forEach(cb=>cb.onchange=e=>{
+    S(n)[cb.dataset.ck]=e.target.checked?1:0; changed();
+  });
+  row.querySelectorAll("button[data-k]").forEach(b=>b.onclick=e=>{
+    e.stopPropagation();
+    const k=b.dataset.k;
+    S(n)[k]=Math.max(1,(+S(n)[k]||1)+(+b.dataset.d)); changed();
+  });
+}
+function renderList(out,list){
+  out.innerHTML=`<p class="lsum"><span id="lsumTxt">${listSummaryHTML(list)}</span>
+      <span class="hint">Coche la carte quand tu l'as. Un doublon = un exemplaire en plus, à régler avec + et −.</span></p>
+    <div class="llist">${list.map(rowHTML).join("")}</div>`;
+  out.querySelectorAll(".lrow").forEach(bindRow);
+}
+
 function render(){
   const list=visible(), out=document.getElementById("out");
   if(!list.length){
@@ -1091,30 +1175,13 @@ function render(){
         </div>
         <div class="qty">${qtyHTML(c)}</div>`;
       bindQty(el,c);
-      el.onclick=()=>{ if(quick){ toggleQuick(c); } else { open(c.n); } };
-      el.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();
-        if(quick){ toggleQuick(c); } else { open(c.n); } } };
+      el.onclick=()=>open(c.n);
+      el.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault(); open(c.n); } };
       g.appendChild(el);
     });
     out.innerHTML=""; out.appendChild(g);
   } else {
-    const rows=list.map(c=>{
-      const s=S(c.n);
-      const vs=versionState(store,c);
-      return `<tr data-n="${c.n}">
-        <td class="n">${c.n}</td><td>${c.nom}</td><td>${c.rarete||"—"}</td>
-        <td>${c.type||"—"}</td><td style="color:var(${ESS[effEssence(c,s)]||"--neutre"})">${effEssence(c,s)||"—"}</td>
-        <td class="num">${+s.qn||0}</td><td class="num">${+s.qr||0}</td>
-        <td>${effRev(c,s)?"Oui":"Non"}${s.rev?"":" (auto)"}</td><td>${s.etat||"—"}</td>
-        <td class="num">${s.prix!==""?(+s.prix).toFixed(2)+" €":"—"}</td>
-        <td class="num">${s.val!==""?(+s.val).toFixed(2)+" €":"—"}</td>
-        <td>${s.loc||"—"}</td><td><span class="st ${vs.cls}">${vs.txt}</span></td></tr>`;
-    }).join("");
-    out.innerHTML=`<div class="table-wrap"><table>
-      <thead><tr><th>N°</th><th>Nom</th><th>Rareté</th><th>Type</th><th>Essence</th>
-      <th>Norm.</th><th>Rev.</th><th>Reverse ?</th><th>État</th><th>Prix payé</th>
-      <th>Valeur</th><th>Emplacement</th><th>Statut</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-    out.querySelectorAll("tbody tr").forEach(tr=>tr.onclick=()=>open(tr.dataset.n));
+    renderList(out,list);
   }
   stats();
   updateFCount();
@@ -1362,7 +1429,6 @@ function openNew(defaultExt, afterSave){
   document.getElementById("cSaveMore").onclick=()=>doSave(true);
   p.classList.add("open"); document.getElementById("scrim").classList.add("open");
 }
-document.getElementById("addCard").onclick=()=>openNew();
 function close(){
   current=null;
   document.getElementById("panel").classList.remove("open");
@@ -1547,12 +1613,6 @@ function updateFCount(){
   const n=fActive(), el=document.getElementById("fCount");
   el.textContent=n; el.classList.toggle("on", n>0);
 }
-document.getElementById("quickMode").onclick=()=>{
-  quick=!quick;
-  document.getElementById("quickMode").setAttribute("aria-pressed", quick);
-  document.getElementById("quickbar").toggleAttribute("hidden", !quick);
-  document.getElementById("out").classList.toggle("quick", quick);
-};
 document.getElementById("toggleF").onclick=()=>{
   const p=document.getElementById("filters"), open=p.hasAttribute("hidden");
   p.toggleAttribute("hidden", !open);
@@ -1878,7 +1938,6 @@ function setTab(t){
   document.getElementById("bars").style.display  = stats ? "grid" : "none";
   document.querySelector(".tools").style.display = away ? "none" : "grid";
   document.getElementById("filters").style.display = away ? "none" : "";
-  document.getElementById("quickbar").toggleAttribute("hidden", !(quick && !away));
   document.getElementById("out").style.display  = stats ? "none" : "block";
   document.getElementById("tColl").setAttribute("aria-pressed", !away);
   document.getElementById("tStats").setAttribute("aria-pressed", stats);
