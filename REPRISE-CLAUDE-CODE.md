@@ -318,6 +318,16 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
 
+**Écran Statistiques refait (27/10/2026).** Fonction `stats()` : deux anneaux SVG (Full set =
+cartes différentes, Master set = normales + reverses, 227 au total), trois chiffres (cartes
+ouvertes, **reverses trouvées sur le total** (ex. 3 / 94 : cartes ayant une reverse cochée sur
+toutes les cartes qui en ont une), **doublons** = somme de `dupOf`), barres « Par rareté » (couleurs
+`RCOLOR`) et « Par essence » (couleurs d'essence), et un bloc « Argent » (investi / valeur / écart)
+**affiché seulement si au moins un prix ou une valeur est saisi**. La barre « reverses par
+rareté » a été supprimée (le Master set la résume). Attention : `setTab("stats")` ne recalcule
+pas, `stats()` est appelée par `render()` — après un changement de données hors interface, appeler
+`render()`.
+
 **Roue crantée « Réglages » (27/10/2026).** Le pied de page a disparu : tout est dans un panneau
 ouvert par la roue (`.gear`, `#gearHome` sur l'accueil, `#gearApp` dans l'en-tête, fonction
 `openSettings()`) : synchronisation, export JSON/CSV, import, copier manquantes/doublons, « Tout

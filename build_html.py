@@ -221,26 +221,41 @@ select{background:var(--surface); border:1px solid var(--line); border-radius:va
 .dupn{font-size:10.5px; color:var(--rose); font-variant-numeric:tabular-nums}
 .cmpwrap{display:grid; gap:14px}
 .cmpactions{display:flex; gap:9px; flex-wrap:wrap}
-.board{max-width:1400px; margin:0 auto 6px; padding:0 18px; display:grid; gap:12px;
-  grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.board{max-width:1400px; margin:18px auto 6px; padding:0 18px; display:grid; gap:12px}
+.rings{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.minis{display:grid; gap:12px; grid-template-columns:repeat(3,1fr)}
 .stat{background:linear-gradient(160deg, var(--bg-2), var(--surface) 130%); border:1px solid var(--line);
   border-radius:var(--r); padding:12px 14px; box-shadow:var(--shadow-md), var(--shadow-inset);
   transition:transform .15s, box-shadow .15s;}
 .stat:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg), var(--shadow-inset)}
-.stat b{display:block; font-family:var(--display); font-size:26px; font-variant-numeric:tabular-nums; line-height:1.15}
+.stat b{display:block; font-family:var(--display); font-size:22px; font-variant-numeric:tabular-nums; line-height:1.15}
 .stat span{color:var(--muted); font-size:12.5px}
-.stat.gain b{color:var(--ok)} .stat.loss b{color:var(--warn)}
+.ringcard{display:flex; align-items:center; gap:16px; padding:16px}
+.ringcard svg{flex:none; width:96px; height:96px}
+.ringcard .rtrack{fill:none; stroke:rgba(255,255,255,.09); stroke-width:10}
+.ringcard .rval{fill:none; stroke-width:10; stroke-linecap:round; transition:stroke-dasharray .5s ease;
+  filter:drop-shadow(0 0 5px currentColor)}
+.ringcard text{fill:var(--ink); font-family:var(--display); font-size:21px; font-weight:600; text-anchor:middle}
+.ringcard .rtxt span{display:block}
+.ringcard .rtxt .rlab{color:var(--muted); font-size:12.5px}
+.ringcard .rtxt .rbig{font-family:var(--display); font-size:26px; font-variant-numeric:tabular-nums; line-height:1.2; color:var(--ink)}
 
 .bars{max-width:1400px; margin:14px auto 0; padding:0 18px; display:grid; gap:14px;
   grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
 .bars section{background:linear-gradient(160deg, var(--bg-2), var(--surface) 130%); border:1px solid var(--line);
   border-radius:var(--r); padding:13px 15px; box-shadow:var(--shadow-md), var(--shadow-inset)}
 .bars h3{font-size:13.5px; color:var(--muted); font-weight:500; margin-bottom:9px}
+.bars .money{grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px 26px; align-items:baseline}
+.bars .money h3{flex:1 1 100%; margin:0}
+.bars .money b{font-family:var(--display); font-size:19px; font-weight:600; margin-right:6px; font-variant-numeric:tabular-nums}
+.bars .money span{color:var(--muted); font-size:13px}
+.bars .money b.gain{color:var(--ok)} .bars .money b.loss{color:var(--warn)}
 .row{display:grid; grid-template-columns:92px 1fr 58px; align-items:center; gap:9px; margin:5px 0; font-size:13px}
 .track{height:7px; background:rgba(6,3,14,.4); border-radius:4px; overflow:hidden; box-shadow:var(--shadow-inset)}
 .track i{display:block; height:100%; border-radius:4px; background:linear-gradient(to right, currentColor, currentColor);
   box-shadow:0 0 8px -1px currentColor}
 .row em{font-style:normal; color:var(--muted); font-variant-numeric:tabular-nums; text-align:right}
+@media (max-width:480px){.minis .stat{padding:10px 11px} .minis .stat b{font-size:19px} .minis .stat span{font-size:11.5px}}
 
 /* ---------- grille ---------- */
 main{max-width:1400px; margin:0 auto; padding:16px 18px 60px}
@@ -1072,10 +1087,9 @@ function render(){
 function stats(){
   const owned=CARDS.filter(c=>has(c.n)).length;
   const total=CARDS.length;
-  let qn=0,qr=0,paid=0,val=0,revDue=0;
+  let qn=0,qr=0,paid=0,val=0;
   CARDS.forEach(c=>{ const s=store[c.n]; if(!s) return;
     qn+=+s.qn||0; qr+=+s.qr||0; paid+=+s.prix||0; val+=+s.val||0;
-    if(effRev(c,s) && (+s.qn||0)>0 && (+s.qr||0)===0) revDue++;
   });
   const pct=total?Math.round(owned/total*100):0;
   const revElig=CARDS.filter(c=>effRev(c,store[c.n]));
@@ -1090,44 +1104,54 @@ function stats(){
 
   const eur=n=>n.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
   const diff=val-paid;
+  let dups=0; CARDS.forEach(c=>{ dups+=dupOf(store,c.n); });
+  const ring=(p,color,label,big,sub)=>{
+    const C=2*Math.PI*42;
+    return `<div class="stat ringcard">
+      <svg viewBox="0 0 100 100" role="img" aria-label="${label} : ${p} %">
+        <circle class="rtrack" cx="50" cy="50" r="42"/>
+        <circle class="rval" cx="50" cy="50" r="42" style="stroke:${color}; color:${color}"
+          stroke-dasharray="${(C*p/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 50 50)"/>
+        <text x="50" y="57">${p} %</text>
+      </svg>
+      <div class="rtxt"><span class="rlab">${label}</span><span class="rbig">${big}</span><span class="rlab">${sub}</span></div>
+    </div>`;
+  };
   document.getElementById("board").innerHTML=`
-    <div class="stat"><b>${owned} / ${total}</b><span>Full set (${pct} %)</span></div>
-    <div class="stat"><b>${masterHave} / ${masterTotal}</b><span>Master set (${pctMaster} %)</span></div>
-    <div class="stat"><b>${qn + qr}</b><span>Cartes ouvertes au total</span></div>
-    <div class="stat"><b>${revDue}</b><span>Reverse à trouver</span></div>
-    <div class="stat"><b>${eur(paid)}</b><span>Total investi</span></div>
-    <div class="stat"><b>${eur(val)}</b><span>Valeur estimée</span></div>
-    <div class="stat ${diff>=0?"gain":"loss"}"><b>${diff>=0?"+":""}${eur(diff)}</b><span>Écart valeur / prix payé</span></div>`;
+    <div class="rings">
+      ${ring(pct,"var(--rose)","Full set",`${owned} / ${total}`,"cartes différentes")}
+      ${ring(pctMaster,"var(--violette)","Master set",`${masterHave} / ${masterTotal}`,"normales + reverses")}
+    </div>
+    <div class="minis">
+      <div class="stat"><b>${qn + qr}</b><span>Cartes ouvertes</span></div>
+      <div class="stat"><b>${revHave} / ${revElig.length}</b><span>Reverses trouvées</span></div>
+      <div class="stat"><b>${dups}</b><span>Doublons</span></div>
+    </div>`;
 
   const blk=(titre,keys,get,colorOf)=>{
     const rows=keys.map(k=>{
       const set=CARDS.filter(c=>get(c)===k);
       const got=set.filter(c=>has(c.n)).length;
       const p=set.length?got/set.length*100:0;
-      const col=colorOf?`var(${colorOf[k]})`:"var(--rose)";
+      const col=colorOf&&colorOf[k] ? colorOf[k] : "var(--rose)";
       return `<div class="row"><span>${k}</span>
         <span class="track" style="color:${col}"><i style="width:${p}%"></i></span>
         <em>${got}/${set.length}</em></div>`;
     }).join("");
     return `<section><h3>${titre}</h3>${rows}</section>`;
   };
-  const blkRev=(titre,keys,field,colorOf)=>{
-    const rows=keys.map(k=>{
-      const set=CARDS.filter(c=>c[field]===k && effRev(c,store[c.n]));
-      if(!set.length) return "";
-      const got=set.filter(c=>(+((store[c.n]||{}).qr)||0)>0).length;
-      const p=set.length?got/set.length*100:0;
-      const col=colorOf?`var(${colorOf[k]})`:"var(--rose)";
-      return `<div class="row"><span>${k}</span>
-        <span class="track" style="color:${col}"><i style="width:${p}%"></i></span>
-        <em>${got}/${set.length}</em></div>`;
-    }).join("");
-    return `<section><h3>${titre}</h3>${rows}</section>`;
-  };
+  const RCOLOR={"Essence":"#ff4da0","Commune":"#9aa3b2","Peu commune":"#5ac84f","Rare":"#3b82f6",
+    "Épique":"#7d4dff","Légendaire":"#e0a82e","Secrète":"#c0304d","Promo":"#22d3ee"};
+  const ECOLOR={}; ESSLIST.forEach(k=>{ ECOLOR[k]=`var(${ESS[k]})`; });
+  const money = (paid>0||val>0) ? `<section class="money"><h3>Argent</h3>
+      <div><b>${eur(paid)}</b><span>investi</span></div>
+      <div><b>${eur(val)}</b><span>valeur estimée</span></div>
+      <div><b class="${diff>=0?"gain":"loss"}">${diff>=0?"+":""}${eur(diff)}</b><span>écart</span></div>
+    </section>` : "";
   document.getElementById("bars").innerHTML=
-    blk("Progression par rareté",RARS,c=>c.rarete,null)+
-    blk("Progression par essence",ESSLIST,c=>effEssence(c,store[c.n]),ESS)+
-    blkRev("Progression des reverses par rareté",RARS,"rarete",null);
+    blk("Par rareté",RARS,c=>c.rarete,RCOLOR)+
+    blk("Par essence",ESSLIST,c=>effEssence(c,store[c.n]),ECOLOR)+
+    money;
 
   const strip=document.getElementById("strip");
   if(strip.childElementCount!==CARDS.length){
