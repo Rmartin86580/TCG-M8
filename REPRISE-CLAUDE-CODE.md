@@ -28,6 +28,8 @@ build4.py               génère le classeur Excel
 Suivi_collection_cartes.xlsx   le classeur, source des données cartes
 images-cartes/          001.png … 127.png, P01.png … (visuels des cartes)
 logo/                   habillage fourni par l'utilisateur (voir §5)
+jeu-de-test/            données fictives pour tester l'onglet Comparer (3 amis + une collection « moi »,
+                        mode d'emploi dans LISEZ-MOI.txt) ; ignoré par git, usage local seulement
 dos-cartes/             133 dos de cartes personnalisés (PNG, 1003×1421) — voir ci-dessous
 dos-cartes-planche.pdf  ces dos en planches A4, 9 par page à 63 mm de large (15 pages)
 checklist-collection.pdf   feuille de suivi imprimable pour le classeur
@@ -317,6 +319,27 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 **Supprimé le 15/09/2026** dans le nettoyage du dossier (code source, non régénérable —
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
+
+**Reverse sans normale (27/10/2026).** On peut posséder la reverse d'une carte sans en avoir la
+normale. `statutOf` la classait à tort « complète » ; elle est maintenant « partielle » (pastille
+orange) tant que les deux versions n'y sont pas, pour les cartes qui ont une reverse. Nouvelle
+fonction `versionState(data,c)` (Complète / Sans reverse / Sans normale / Absente) utilisée par la
+colonne « Statut » du tableau de la collection (plus de symboles ●◐○) et par Comparer. Le filtre
+de statut « Reverse manquante » s'appelle « Une version manque ». Le Full set compte une carte dès
+qu'une version est possédée (reverse seule incluse) ; le Master set compte chaque version à part.
+Le classeur Excel (`build4.py`) était déjà correct.
+
+**Écran Comparer refait (27/10/2026).** Un ami à la fois (puces en haut, `cmpFriend`) au lieu
+d'un tableau avec tous les amis et des symboles ●◐○. Contenu : 3 chiffres (cartes de l'ami, en
+commun, échanges possibles donner ⇄ recevoir), deux listes « Tu peux donner à X » / « X peut te
+donner » (8 lignes + « Voir N autres », bouton Copier), puis le tableau de toutes les cartes en
+deux colonnes (toi / l'ami) avec étiquettes en mots (Complète, Sans reverse, Sans normale, Absente
++ « N en double ») et trois filtres (toutes / chez l'ami pas chez toi / chez toi pas chez l'ami).
+Règle d'échange (`tradeList`) : on propose un **doublon de version** (normale en double si l'autre
+n'a aucune normale ; reverse en double si l'autre n'a aucune reverse et que la reverse existe),
+plus fine que l'ancienne règle « carte entière manquante ». Noms d'amis et de cartes échappés
+(`cmpEsc`). Le conteneur `.cmpwrap` a `grid-template-columns:minmax(0,1fr)` : sans ça le tableau
+élargit toute la page sur mobile. Jeu de test : dossier `jeu-de-test/`.
 
 **Écran Statistiques refait (27/10/2026).** Fonction `stats()` : deux anneaux SVG (Full set =
 cartes différentes, Master set = normales + reverses, 227 au total), trois chiffres (cartes

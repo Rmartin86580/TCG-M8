@@ -8,3 +8,6 @@ __pycache__/
 # Dos de cartes à imprimer : lourds (45 Mo) et inutiles au site. Supprime ces 2 lignes pour les publier quand même
 dos-cartes/
 dos-cartes-planche.pdf
+
+# Données fictives pour tester l'écran Comparer (usage local)
+jeu-de-test/

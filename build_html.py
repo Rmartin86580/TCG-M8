@@ -216,10 +216,36 @@ select{background:var(--surface); border:1px solid var(--line); border-radius:va
 .tabnav button[aria-pressed=true]::after{content:""; position:absolute; left:12px; right:12px; bottom:-1px;
   height:2px; background:var(--rose); border-radius:2px; box-shadow:0 0 8px var(--rose)}
 .tabnav button[hidden]{display:none}
-.cmptable{font-size:13px} .cmptable td.cmp{text-align:center; font-size:15px}
-.cmptable td.cmp.complete{color:var(--ok)} .cmptable td.cmp.partielle{color:var(--warn)} .cmptable td.cmp.manquante{color:var(--dim)}
-.dupn{font-size:10.5px; color:var(--rose); font-variant-numeric:tabular-nums}
-.cmpwrap{display:grid; gap:14px}
+.xchips{display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.xchips .chip{padding:7px 16px; font-size:14px}
+.xchips .chip[aria-pressed=true]{background:var(--rose); color:#18101C; border-color:transparent; font-weight:600}
+.xfilters{display:flex; gap:7px; flex-wrap:wrap}
+.xlists{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.xbox{background:linear-gradient(160deg, var(--bg-2), var(--surface) 130%); border:1px solid var(--line);
+  border-radius:var(--r); padding:13px 15px; box-shadow:var(--shadow-md), var(--shadow-inset)}
+.xhead{display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:6px}
+.xhead b{font-weight:600}
+.btn.small{padding:5px 12px; font-size:13px}
+.xrow{display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-top:1px solid var(--line); font-size:13.5px}
+.xrow .n{color:var(--dim); font-family:var(--display); margin-right:9px; font-variant-numeric:tabular-nums}
+.xrow em{font-style:normal; color:var(--muted); font-size:12.5px; text-align:right}
+.xempty{color:var(--dim); margin:6px 0 0; font-size:13px}
+.xmore{background:none; border:0; color:var(--rose); cursor:pointer; padding:8px 0 0; font-size:13px}
+.xtable{min-width:0}
+.xtable td{white-space:normal}
+.st{display:inline-block; border-radius:6px; padding:2px 9px; font-size:12px; white-space:nowrap}
+.st.ok{background:rgba(90,200,79,.16); color:var(--ok)}
+.st.part{background:rgba(245,185,74,.16); color:var(--warn)}
+.st.no{background:rgba(255,255,255,.06); color:var(--dim)}
+.stdup{color:var(--muted); font-size:12px; margin-left:8px; white-space:nowrap}
+.cmpwrap{display:grid; gap:14px; grid-template-columns:minmax(0,1fr)}
+@media (max-width:480px){
+  .stdup{display:block; margin:3px 0 0}
+  .xbox{padding:12px 10px}
+  .xtable th,.xtable td{padding:8px 5px}
+  .xtable{font-size:13px}
+  .st{padding:2px 6px}
+}
 .cmpactions{display:flex; gap:9px; flex-wrap:wrap}
 .board{max-width:1400px; margin:18px auto 6px; padding:0 18px; display:grid; gap:12px}
 .rings{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
@@ -813,8 +839,15 @@ function statutOf(data,n){
   const s = data[n]; if(!s) return "manquante";
   const qn=+s.qn||0, qr=+s.qr||0;
   if(qn+qr===0) return "manquante";
-  if(effRev(CARDS.find(c=>c.n===n),s) && qr===0) return "partielle";
+  if(effRev(CARDS.find(c=>c.n===n),s) && (qn===0 || qr===0)) return "partielle";
   return "complete";
+}
+/* état d'une carte en mots : Complète / Sans reverse / Sans normale / Absente */
+function versionState(data,c){
+  const s=data[c.n]||{}, n=+s.qn||0, r=+s.qr||0;
+  if(n+r===0) return {cls:"no", txt:"Absente"};
+  if(!effRev(c,s) || (n>0&&r>0)) return {cls:"ok", txt:"Complète"};
+  return n>0 ? {cls:"part", txt:"Sans reverse"} : {cls:"part", txt:"Sans normale"};
 }
 function dupOf(data,n){
   const s=data[n]; if(!s) return 0;
@@ -903,7 +936,7 @@ function chip(host, label, active, onclick, color){
 }
 function buildFilters(){
   const st=document.getElementById("fStatus"); st.innerHTML="";
-  [["manquante","Manquantes"],["partielle","Reverse manquante"],["complete","Complètes"]]
+  [["manquante","Manquantes"],["partielle","Une version manque"],["complete","Complètes"]]
     .forEach(([k,l])=>chip(st,l,fSt.has(k),()=>{fSt.has(k)?fSt.delete(k):fSt.add(k); render();}));
   const ra=document.getElementById("fRarete"); ra.innerHTML="";
   RARS.forEach(r=>chip(ra,r,fRa.has(r),()=>{fRa.has(r)?fRa.delete(r):fRa.add(r); render();}));
@@ -1062,8 +1095,8 @@ function render(){
     out.innerHTML=""; out.appendChild(g);
   } else {
     const rows=list.map(c=>{
-      const s=S(c.n), st=statut(c.n);
-      const mark=st==="complete"?"●":st==="partielle"?"◐":"○";
+      const s=S(c.n);
+      const vs=versionState(store,c);
       return `<tr data-n="${c.n}">
         <td class="n">${c.n}</td><td>${c.nom}</td><td>${c.rarete||"—"}</td>
         <td>${c.type||"—"}</td><td style="color:var(${ESS[effEssence(c,s)]||"--neutre"})">${effEssence(c,s)||"—"}</td>
@@ -1071,7 +1104,7 @@ function render(){
         <td>${effRev(c,s)?"Oui":"Non"}${s.rev?"":" (auto)"}</td><td>${s.etat||"—"}</td>
         <td class="num">${s.prix!==""?(+s.prix).toFixed(2)+" €":"—"}</td>
         <td class="num">${s.val!==""?(+s.val).toFixed(2)+" €":"—"}</td>
-        <td>${s.loc||"—"}</td><td>${mark}</td></tr>`;
+        <td>${s.loc||"—"}</td><td><span class="st ${vs.cls}">${vs.txt}</span></td></tr>`;
     }).join("");
     out.innerHTML=`<div class="table-wrap"><table>
       <thead><tr><th>N°</th><th>Nom</th><th>Rareté</th><th>Type</th><th>Essence</th>
@@ -1685,58 +1718,114 @@ function openExtForm(existingName){
 }
 
 /* ---------- comparaison avec des amis ---------- */
-function mark(st){ return st==="complete"?"●":st==="partielle"?"◐":"○"; }
+let cmpFriend=0, cmpFilter="all", cmpMore={give:false,ask:false};
+const cmpEsc=s=>String(s==null?"":s).replace(/[&<>"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+function qOf(data,n){ const s=data[n]||{}; return [+s.qn||0, +s.qr||0]; }
+/* cartes que `from` peut donner à `to` : doublons que l'autre n'a pas du tout dans cette version */
+function tradeList(from,to){
+  const out=[];
+  CARDS.forEach(c=>{
+    const [fn,fr]=qOf(from,c.n), [tn,tr]=qOf(to,c.n);
+    const parts=[];
+    if(fn>1 && tn===0) parts.push(`en double ×${fn-1}`);
+    if(fr>1 && tr===0 && effRev(c,from[c.n])) parts.push(`reverse en double ×${fr-1}`);
+    if(parts.length) out.push({c, txt:parts.join(" · ")});
+  });
+  return out;
+}
+function cellHTML(data,c){
+  const [n,r]=qOf(data,c.n);
+  const dup=Math.max(0,n-1)+Math.max(0,r-1);
+  const {cls,txt}=versionState(data,c);
+  return `<span class="st ${cls}">${txt}</span>${dup>0?`<span class="stdup">${dup} en double</span>`:""}`;
+}
+function tradeText(items){ return items.map(it=>`${it.c.n} · ${it.c.nom} — ${it.txt}`).join("\n"); }
 function renderCompare(){
   const host=document.getElementById("out");
   if(!FRIENDS.length){
     host.innerHTML=`<div class="empty"><b>Aucun ami importé</b>
-      Demande à tes amis d'exporter leur collection (bouton « Exporter mes données »),
+      Demande à tes amis d'exporter leur collection (bouton « Exporter mes données » dans la roue crantée),
       puis importe leur(s) fichier(s) ici pour comparer vos collections.<br><br>
       <button class="btn primary" id="addFriends">Importer des amis</button></div>`;
     document.getElementById("addFriends").onclick=()=>document.getElementById("friendFile").click();
     return;
   }
-  const rows=CARDS.map(c=>{
-    const mine=statut(c.n), myDup=dupOf(store,c.n);
-    const cells=FRIENDS.map(f=>{
-      const st=statutOf(f.data,c.n), dup=dupOf(f.data,c.n);
-      return `<td class="cmp ${st}">${mark(st)}${dup>0?` <span class="dupn">+${dup}</span>`:""}</td>`;
-    }).join("");
-    return `<tr><td class="n">${c.n}</td><td>${c.nom}</td>
-      <td class="cmp ${mine}">${mark(mine)}${myDup>0?` <span class="dupn">+${myDup}</span>`:""}</td>
-      ${cells}</tr>`;
-  }).join("");
+  if(cmpFriend>=FRIENDS.length || cmpFriend<0) cmpFriend=0;
+  const f=FRIENDS[cmpFriend], nm=cmpEsc(f.name);
+  const give=tradeList(store,f.data), ask=tradeList(f.data,store);
+  const theirN=ownedCount(f.data);
+  const common=CARDS.filter(c=>{ const [a,b]=qOf(f.data,c.n); return has(c.n) && a+b>0; }).length;
+
+  const listHTML=(key,title,items)=>{
+    const limit=8, all=cmpMore[key], shown=all?items:items.slice(0,limit);
+    return `<section class="xbox"><div class="xhead"><b>${title} · ${items.length}</b>
+        ${items.length?`<button class="btn small" data-copy="${key}">Copier</button>`:""}</div>
+      ${items.length
+        ? shown.map(it=>`<div class="xrow"><span><span class="n">${it.c.n}</span>${cmpEsc(it.c.nom)}</span><em>${it.txt}</em></div>`).join("")
+        : `<p class="xempty">Rien à échanger dans ce sens pour l'instant.</p>`}
+      ${items.length>limit?`<button class="xmore" data-more="${key}">${all?"Réduire":`Voir ${items.length-limit} autre${items.length-limit>1?"s":""}`}</button>`:""}
+    </section>`;
+  };
+
+  const rows=CARDS.filter(c=>{
+    const [mn,mr]=qOf(store,c.n), [tn,tr]=qOf(f.data,c.n);
+    const iHave=mn+mr>0, heHas=tn+tr>0;
+    if(cmpFilter==="they") return heHas && !iHave;
+    if(cmpFilter==="me") return iHave && !heHas;
+    return true;
+  }).map(c=>`<tr><td class="n">${c.n}</td><td>${cmpEsc(c.nom)}</td>
+      <td>${cellHTML(store,c)}</td><td>${cellHTML(f.data,c)}</td></tr>`).join("");
+
+  const flt=[["all","Toutes les cartes"],["they",`Chez ${nm}, pas chez toi`],["me",`Chez toi, pas chez ${nm}`]];
   host.innerHTML=`<div class="cmpwrap">
-    <p class="hint">● complète · ◐ reverse manquante · ○ manquante · le chiffre en rose est le nombre de doublons.</p>
-    <div class="table-wrap"><table class="cmptable">
-      <thead><tr><th>N°</th><th>Nom</th><th>Toi</th>${FRIENDS.map(f=>`<th>${f.name}</th>`).join("")}</tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>
+    <div class="xchips">
+      ${FRIENDS.map((x,i)=>`<button class="chip" data-f="${i}" aria-pressed="${i===cmpFriend}">${cmpEsc(x.name)}</button>`).join("")}
+      <button class="chip" id="addFriends">+ Importer un ami</button>
+    </div>
+    <div class="minis">
+      <div class="stat"><b>${theirN}</b><span>cartes chez ${nm}</span></div>
+      <div class="stat"><b>${common}</b><span>cartes en commun</span></div>
+      <div class="stat"><b>${give.length} ⇄ ${ask.length}</b><span>échanges possibles</span></div>
+    </div>
+    <div class="xlists">
+      ${listHTML("give",`Tu peux donner à ${nm}`,give)}
+      ${listHTML("ask",`${nm} peut te donner`,ask)}
+    </div>
+    <section class="xbox">
+      <div class="xhead"><b>Toutes les cartes</b></div>
+      <div class="xfilters">${flt.map(([k,l])=>`<button class="chip" data-flt="${k}" aria-pressed="${cmpFilter===k}">${l}</button>`).join("")}</div>
+      <div class="table-wrap" style="margin-top:10px"><table class="xtable">
+        <thead><tr><th>N°</th><th>Nom</th><th>Toi</th><th>${nm}</th></tr></thead>
+        <tbody>${rows||`<tr><td colspan="4">Aucune carte dans cette liste.</td></tr>`}</tbody>
+      </table></div>
+    </section>
     <div class="cmpactions">
-      ${FRIENDS.map((f,i)=>`<button class="btn" data-friend="${i}">Résumé d'échange avec ${f.name}</button>`).join("")}
-      <button class="btn" id="addFriends">Importer d'autres amis</button>
-      <button class="btn warn" id="clearFriends">Retirer tous les amis</button>
+      <button class="btn" id="copyTrade">Copier le résumé d'échange</button>
+      <button class="btn warn" id="removeFriend">Retirer ${nm}</button>
     </div>
   </div>`;
-  host.querySelectorAll("[data-friend]").forEach(b=>b.onclick=()=>copyTradeSummary(+b.dataset.friend));
-  document.getElementById("addFriends").onclick=()=>document.getElementById("friendFile").click();
-  document.getElementById("clearFriends").onclick=()=>{ FRIENDS=[]; renderCompare(); };
-}
-function copyTradeSummary(i){
-  const f=FRIENDS[i];
-  const give=[], ask=[];
-  CARDS.forEach(c=>{
-    if(dupOf(store,c.n)>0 && statutOf(f.data,c.n)==="manquante") give.push(`${c.n} · ${c.nom}`);
-    if(dupOf(f.data,c.n)>0 && statut(c.n)==="manquante") ask.push(`${c.n} · ${c.nom}`);
+
+  host.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{ cmpFriend=+b.dataset.f; cmpMore={give:false,ask:false}; renderCompare(); });
+  host.querySelectorAll("[data-flt]").forEach(b=>b.onclick=()=>{ cmpFilter=b.dataset.flt; renderCompare(); });
+  host.querySelectorAll("[data-more]").forEach(b=>b.onclick=()=>{ cmpMore[b.dataset.more]=!cmpMore[b.dataset.more]; renderCompare(); });
+  host.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.copy, items=k==="give"?give:ask;
+    copyText(tradeText(items), `${items.length} carte(s) copiée(s)`);
   });
-  const lines=[`Échange avec ${f.name} :`,"",
-    `Tu peux lui donner (${give.length}) :`, ...(give.length?give:["—"]), "",
-    `Tu peux lui demander (${ask.length}) :`, ...(ask.length?ask:["—"])];
-  copyText(lines.join("\n"), `Résumé avec ${f.name} copié`);
+  document.getElementById("addFriends").onclick=()=>document.getElementById("friendFile").click();
+  document.getElementById("copyTrade").onclick=()=>{
+    const lines=[`Échange avec ${f.name} :`,"",
+      `Je peux te donner (${give.length}) :`, ...(give.length?[tradeText(give)]:["—"]), "",
+      `Tu peux me donner (${ask.length}) :`, ...(ask.length?[tradeText(ask)]:["—"])];
+    copyText(lines.join("\n"), `Résumé avec ${f.name} copié`);
+  };
+  document.getElementById("removeFriend").onclick=()=>{
+    FRIENDS.splice(cmpFriend,1); cmpFriend=0; cmpMore={give:false,ask:false}; renderCompare();
+  };
 }
 document.getElementById("friendFile").onchange=e=>{
   const files=[...e.target.files]; if(!files.length) return;
-  let done=0;
+  let done=0; const firstNew=FRIENDS.length;
   files.forEach(f=>{
     const r=new FileReader();
     r.onload=()=>{
@@ -1747,7 +1836,10 @@ document.getElementById("friendFile").onchange=e=>{
         FRIENDS.push({name:f.name.replace(/\.json$/i,""), data:d});
       }catch(err){ toast("Fichier illisible : "+f.name); }
       done++;
-      if(done===files.length){ setTab("compare"); toast(FRIENDS.length+" ami(s) chargé(s)"); }
+      if(done===files.length){
+        cmpFriend=Math.max(0,Math.min(firstNew,FRIENDS.length-1)); cmpMore={give:false,ask:false};
+        setTab("compare"); toast(FRIENDS.length+" ami(s) chargé(s)");
+      }
     };
     r.readAsText(f);
   });
