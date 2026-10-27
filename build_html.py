@@ -370,8 +370,6 @@ select.tag.ess option{background:var(--surface-2); color:var(--ink)}
 .hint{color:var(--dim); font-size:12px; margin-top:-4px}
 
 /* ---------- pied ---------- */
-footer{border-top:1px solid var(--line); margin-top:34px; padding:20px 18px 34px}
-.fwrap{max-width:1400px; margin:0 auto; display:flex; gap:9px; flex-wrap:wrap; align-items:center}
 .btn{background:linear-gradient(160deg, var(--surface-2), var(--surface) 130%); border:1px solid var(--line);
   border-radius:var(--r); padding:9px 14px; cursor:pointer; color:var(--muted);
   box-shadow:var(--shadow-sm), var(--shadow-inset); transition:color .15s, border-color .15s, transform .1s, box-shadow .15s}
@@ -383,8 +381,19 @@ footer{border-top:1px solid var(--line); margin-top:34px; padding:20px 18px 34px
 .quickbar[hidden]{display:none}
 main.quick .card{cursor:pointer}
 main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
-.fnote{color:var(--dim); font-size:12.5px; flex:1 1 100%; margin-top:4px; line-height:1.55}
-.sync{color:var(--muted); font-size:12.5px; margin-left:auto}
+.gear{width:40px; height:40px; border-radius:50%; flex:none; display:grid; place-items:center; cursor:pointer;
+  background:linear-gradient(160deg, var(--surface-2), var(--surface) 130%); border:1px solid var(--line);
+  color:var(--muted); box-shadow:var(--shadow-sm), var(--shadow-inset);
+  transition:color .15s, border-color .15s, transform .3s}
+.gear:hover{color:var(--ink); border-color:var(--dim); transform:rotate(60deg)}
+.gear .ic{width:20px; height:20px}
+#gearHome{position:absolute; top:calc(16px + env(safe-area-inset-top)); right:16px}
+#gearApp{position:absolute; top:calc(8px + env(safe-area-inset-top)); right:max(18px, calc((100% - 1400px) / 2 + 18px))}
+#home{position:relative}
+.gear.alert::after{content:""; position:absolute; top:1px; right:1px; width:11px; height:11px; border-radius:50%;
+  background:var(--rose); box-shadow:0 0 0 2px var(--bg)}
+.setbtns{display:grid; gap:8px}
+.setbtns .btn{text-align:left}
 .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--surface-2);
   border:1px solid var(--dim); border-radius:999px; padding:9px 18px; z-index:60; display:none; font-size:13.5px;
   box-shadow:var(--shadow-lg)}
@@ -399,8 +408,8 @@ main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
     <h1 id="homeTitle">Ma collection</h1>
     <p class="home-sub">Choisis une extension</p>
     <div id="extTiles" class="ext-tiles"></div>
-    <button class="btn" id="newExtBtn" hidden>+ Créer une extension</button>
   </div>
+  <button class="gear" id="gearHome" aria-label="Réglages" title="Réglages"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button>
 </section>
 
 <div id="app" hidden>
@@ -412,6 +421,7 @@ main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
     <h1 id="title">Ma collection</h1>
     <div class="count"><b id="hCount">0</b> / __TOTAL__ cartes · <span id="hPct">0 %</span></div>
   </div>
+  <button class="gear" id="gearApp" aria-label="Réglages" title="Réglages"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button>
   <div class="strip" id="strip" role="img" aria-label="Progression carte par carte"></div>
 </header>
 
@@ -478,26 +488,11 @@ main.quick .card:hover{box-shadow:var(--shadow-lg), 0 0 0 2px var(--rose)}
 
 <main id="out"></main>
 
-<footer><div class="fwrap">
-  <button class="btn" id="syncBtn">Synchroniser</button>
-  <button class="btn" id="exJson">Exporter mes données</button>
-  <button class="btn" id="imJson">Importer un fichier</button>
-  <button class="btn" id="exCsv">Exporter en CSV</button>
-  <button class="btn" id="copyMissing">Copier les manquantes</button>
-  <button class="btn" id="copyDup">Copier les doublons</button>
-  <button class="btn warn" id="reset">Tout effacer</button>
-  <input type="file" id="file" accept="application/json" hidden>
-  <span id="syncState" class="sync"></span>
-  <p class="fnote">
-    Tes saisies restent dans ce navigateur, sur cet appareil. Pour les retrouver sur un autre appareil,
-    utilise « Synchroniser » (via ton compte GitHub), ou exporte le fichier et importe-le là-bas.<br>
-    Les visuels s'affichent tout seuls si tu places tes images dans un dossier <code>images-cartes</code>
-    à côté de cette page, nommées par leur numéro : <code>001.png</code>, <code>002.png</code>…
-  </p>
-</div></footer>
+
 
 </div>
 
+<input type="file" id="file" accept="application/json" hidden>
 <div class="scrim" id="scrim"></div>
 <aside class="panel" id="panel" aria-label="Détail de la carte"></aside>
 <div class="toast" id="toast"></div>
@@ -585,7 +580,12 @@ function setDirty(v){
   syncDirty=v;
   try{ localStorage.setItem(DIRTYKEY, v?"1":"0"); }catch(e){}
 }
-function setSync(t){ const el=document.getElementById("syncState"); if(el) el.textContent=t; }
+let syncText="";
+function setSync(t){
+  syncText=t; const el=document.getElementById("syncState"); if(el) el.textContent=t;
+  const alert=/refusé|introuvable|choix/.test(t);
+  document.querySelectorAll(".gear").forEach(g=>g.classList.toggle("alert",alert));
+}
 function changed(){ dirtySeq++; if(!SYNC) return; setDirty(true); schedulePush(); }
 function snapshot(){
   return {v:3, updatedAt:new Date().toISOString(), data:store, extra:EXTRA, overrides:OVERRIDES,
@@ -643,8 +643,8 @@ async function writeCloud(snap){
     {method:"PATCH", body:JSON.stringify({files:{[GFILE]:{content:JSON.stringify(snap)}}})});
 }
 function syncError(e){
-  if(e && (e.status===401||e.status===403)) setSync("Jeton refusé — ouvre « Synchroniser » pour le remplacer");
-  else if(e && e.status===404) setSync("Sauvegarde en ligne introuvable — ouvre « Synchroniser »");
+  if(e && (e.status===401||e.status===403)) setSync("Jeton refusé — remplace-le dans les réglages (roue crantée)");
+  else if(e && e.status===404) setSync("Sauvegarde en ligne introuvable — vois les réglages (roue crantée)");
   else setSync("Pas de connexion : tes saisies sont gardées ici, nouvel essai plus tard");
 }
 function schedulePush(){
@@ -679,7 +679,7 @@ async function syncNow(){
 }
 function showConflict(cloud){
   syncConflict=cloud;
-  setSync("Un choix est à faire : ouvre « Synchroniser »");
+  setSync("Un choix est à faire : ouvre les réglages (roue crantée)");
   openSync();
 }
 async function resolveConflict(keepLocal){
@@ -754,7 +754,7 @@ function openSync(){
     body=`<h2>Synchronisation active</h2>
       <div class="form">
         <p class="hint" style="margin:0">${SYNC.last?`Dernière synchronisation : ${fmtDate(SYNC.last)}`:"Pas encore synchronisé"}</p>
-        <p style="margin:0">Ta collection est enregistrée dans un fichier secret de ton compte GitHub, mis à jour tout seul quand tu coches une carte. Sur un autre appareil : ouvre ce site, clique sur « Synchroniser » et colle le même jeton.</p>
+        <p style="margin:0">Ta collection est enregistrée dans un fichier secret de ton compte GitHub, mis à jour tout seul quand tu coches une carte. Sur un autre appareil : ouvre ce site, clique sur la roue crantée puis sur « Synchroniser mes appareils » et colle le même jeton.</p>
         <button class="btn" id="sNow">Synchroniser maintenant</button>
         <a class="btn" style="text-align:center;text-decoration:none" href="https://gist.github.com/${SYNC.id}" target="_blank" rel="noopener">Voir le fichier et son historique</a>
         <button class="btn warn" id="sOff">Désactiver sur cet appareil</button>
@@ -781,7 +781,6 @@ function openSync(){
   on("sGo",async()=>{ await connect(document.getElementById("sToken").value); });
   p.classList.add("open"); document.getElementById("scrim").classList.add("open");
 }
-document.getElementById("syncBtn").onclick=openSync;
 document.addEventListener("visibilitychange",()=>{ syncNow(); });
 window.addEventListener("online",()=>{ syncNow(); });
 
@@ -814,8 +813,6 @@ const ADMKEY="m8tcg.admin";
 let adminUnlocked=false;
 try{ adminUnlocked = localStorage.getItem(ADMKEY)==="1"; }catch(e){}
 function applyAdminVisibility(){
-  document.getElementById("tAdmin").hidden=!adminUnlocked;
-  document.getElementById("newExtBtn").hidden=!adminUnlocked;
   if(!adminUnlocked && document.getElementById("tAdmin").getAttribute("aria-pressed")==="true") setTab("coll");
 }
 function toggleAdmin(){
@@ -1324,14 +1321,14 @@ function download(name, text, type){
   a.href=URL.createObjectURL(new Blob([text],{type}));
   a.download=name; a.click(); URL.revokeObjectURL(a.href);
 }
-document.getElementById("exJson").onclick=()=>{
+function exportJson(){
   download("ma-collection-m8.json",
     JSON.stringify({v:3,date:new Date().toISOString(),data:store,extra:EXTRA,
       overrides:OVERRIDES,deleted:DELETED,extsExtra:EXT_EXTRA,extMeta:EXT_META},null,1),
     "application/json");
   toast("Fichier exporté");
-};
-document.getElementById("exCsv").onclick=()=>{
+}
+function exportCsv(){
   const head=["N°","Nom","Rareté","Type","Essence","Qté normale","Qté reverse","Reverse existe",
     "État","Prix payé","Valeur estimée","Date","Emplacement","Notes","Statut"];
   const esc=v=>`"${String(v??"").replace(/"/g,'""')}"`;
@@ -1342,7 +1339,7 @@ document.getElementById("exCsv").onclick=()=>{
   }));
   download("ma-collection-m8.csv","\ufeff"+lines.join("\r\n"),"text/csv;charset=utf-8");
   toast("CSV exporté");
-};
+}
 function copyText(text, msg){
   const done=()=>toast(msg);
   const fallback=()=>{
@@ -1356,12 +1353,12 @@ function copyText(text, msg){
     navigator.clipboard.writeText(text).then(done).catch(fallback);
   } else fallback();
 }
-document.getElementById("copyMissing").onclick=()=>{
+function copyMissing(){
   const lines=CARDS.filter(c=>statut(c.n)==="manquante").map(c=>`${c.n} · ${c.nom}`);
   if(!lines.length){ toast("Tu as toute la collection !"); return; }
   copyText(lines.join("\n"), `${lines.length} carte(s) manquantes copiées`);
-};
-document.getElementById("copyDup").onclick=()=>{
+}
+function copyDup(){
   const lines=[];
   CARDS.forEach(c=>{
     const s=S(c.n);
@@ -1374,8 +1371,8 @@ document.getElementById("copyDup").onclick=()=>{
   });
   if(!lines.length){ toast("Aucun doublon pour l'instant"); return; }
   copyText(lines.join("\n"), `${lines.length} carte(s) en double copiées`);
-};
-document.getElementById("imJson").onclick=()=>document.getElementById("file").click();
+}
+function importPick(){ document.getElementById("file").click(); }
 document.getElementById("file").onchange=e=>{
   const f=e.target.files[0]; if(!f) return;
   const r=new FileReader();
@@ -1397,10 +1394,62 @@ document.getElementById("file").onchange=e=>{
   };
   r.readAsText(f);
 };
-document.getElementById("reset").onclick=()=>{
+function resetAll(){
   if(!confirm("Effacer toutes tes saisies ? Les cartes du set resteront, mais quantités, prix et notes seront perdus."+(SYNC?" La sauvegarde en ligne sera aussi vidée (l'historique reste sur GitHub).":""))) return;
   store={}; save(); render(); toast("Données effacées");
-};
+}
+
+/* ---------- réglages (roue crantée) ---------- */
+function openSettings(){
+  current=null;
+  const p=document.getElementById("panel");
+  p.style.setProperty("--essence","var(--neutre)");
+  const inApp=!document.getElementById("app").hidden;
+  const adm = adminUnlocked ? `
+    <section class="pblock"><h3>Administration</h3><div class="setbtns">
+      ${inApp?`<button class="btn" id="stAdminCards">Gérer les cartes de cette extension</button>`:""}
+      <button class="btn" id="stNewExt">Créer une extension</button>
+      <button class="btn" id="stAdminOff">Quitter le mode administration</button>
+    </div></section>` : "";
+  p.innerHTML=`<button class="close" id="pClose" aria-label="Fermer">×</button>
+    <h2>Réglages</h2>
+    <div class="form">
+      <section class="pblock"><h3>Synchronisation</h3>
+        <p class="hint" style="margin:0">${syncText || "Mode local : les saisies restent sur cet appareil"}</p>
+        <button class="btn" id="stSync">${SYNC?"Voir la synchronisation":"Synchroniser mes appareils"}</button>
+      </section>
+      <section class="pblock"><h3>Mes données</h3><div class="setbtns">
+        <button class="btn" id="stExJson">Exporter mes données</button>
+        <button class="btn" id="stImport">Importer un fichier</button>
+        <button class="btn" id="stCsv">Exporter en CSV</button>
+      </div>
+      <p class="hint" style="margin:0">Sans synchronisation, tes saisies restent dans ce navigateur, sur cet appareil. Exporte-les de temps en temps pour garder une copie.</p>
+      </section>
+      <section class="pblock"><h3>Partager</h3><div class="setbtns">
+        <button class="btn" id="stMiss">Copier les manquantes</button>
+        <button class="btn" id="stDup">Copier les doublons</button>
+      </div></section>
+      ${adm}
+      <section class="pblock"><h3>Zone dangereuse</h3>
+        <button class="btn warn" id="stReset">Tout effacer</button>
+      </section>
+    </div>`;
+  const on=(id,fn)=>{ const el=document.getElementById(id); if(el) el.onclick=fn; };
+  on("pClose",close);
+  on("stSync",openSync);
+  on("stExJson",exportJson);
+  on("stImport",importPick);
+  on("stCsv",exportCsv);
+  on("stMiss",copyMissing);
+  on("stDup",copyDup);
+  on("stReset",()=>{ resetAll(); });
+  on("stAdminCards",()=>{ close(); setTab("admin"); });
+  on("stNewExt",()=>openExtForm(null));
+  on("stAdminOff",()=>{ toggleAdmin(); openSettings(); });
+  p.classList.add("open"); document.getElementById("scrim").classList.add("open");
+}
+document.getElementById("gearHome").onclick=openSettings;
+document.getElementById("gearApp").onclick=openSettings;
 
 /* ---------- contrôles ---------- */
 document.getElementById("q").oninput=e=>{ query=e.target.value; render(); };
@@ -1610,7 +1659,6 @@ function openExtForm(existingName){
   };
   p.classList.add("open"); document.getElementById("scrim").classList.add("open");
 }
-document.getElementById("newExtBtn").onclick=()=>openExtForm(null);
 
 /* ---------- comparaison avec des amis ---------- */
 function mark(st){ return st==="complete"?"●":st==="partielle"?"◐":"○"; }
@@ -1696,6 +1744,7 @@ function setTab(t){
   document.getElementById("tStats").setAttribute("aria-pressed", stats);
   document.getElementById("tCompare").setAttribute("aria-pressed", compare);
   document.getElementById("tAdmin").setAttribute("aria-pressed", admin);
+  document.getElementById("tAdmin").hidden = !admin;
   if(compare) renderCompare(); else if(admin) renderAdmin(); else if(!stats) render();
 }
 document.getElementById("tColl").onclick=()=>setTab("coll");

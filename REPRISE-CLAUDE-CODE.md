@@ -318,6 +318,16 @@ collection en JSON côté serveur, avec sauvegardes horodatées et authentificat
 voir §2). Si le besoin de synchronisation entre appareils redevient prioritaire, ce projet
 est à refaire de zéro.
 
+**Roue crantée « Réglages » (27/10/2026).** Le pied de page a disparu : tout est dans un panneau
+ouvert par la roue (`.gear`, `#gearHome` sur l'accueil, `#gearApp` dans l'en-tête, fonction
+`openSettings()`) : synchronisation, export JSON/CSV, import, copier manquantes/doublons, « Tout
+effacer », et — seulement si le mode administration est déverrouillé (5 taps secrets, inchangé) —
+gérer les cartes de l'extension, créer une extension, quitter l'administration. Les anciens
+handlers de boutons sont devenus des fonctions (`exportJson`, `exportCsv`, `copyMissing`,
+`copyDup`, `importPick`, `resetAll`) ; `#file` (import) reste dans le corps de la page. L'onglet
+« Administration » n'apparaît plus que lorsqu'on est dedans. `#newExtBtn` et `<footer>` supprimés.
+Un point rose sur la roue signale un souci de synchro (jeton refusé, choix de version à faire).
+
 **Barre d'outils refaite (27/10/2026).** Onglets Collection / Statistiques / Comparer en
 navigation soulignée (`.tabnav`) ; rangée 1 = recherche en pilule + bouton Filtres ; rangée 2 =
 tri, vue galerie/tableau en icônes SVG intégrées (aucune dépendance externe), curseur de taille
@@ -329,7 +339,7 @@ n'est plus à côté des onglets : il est dans l'onglet Comparer (`#addFriends` 
 
 **Mise à jour 27/10/2026 — la synchronisation existe, autrement.** L'appli est publiée via
 GitHub Pages (voir `README.md`) et synchronise la collection par un **gist secret** du compte
-GitHub de l'utilisateur (bouton « Synchroniser » dans le pied de page). Aucun serveur. Code :
+GitHub de l'utilisateur (roue crantée en haut à droite → « Synchroniser mes appareils »). Aucun serveur. Code :
 bloc « synchronisation » de `build_html.py` (remplace l'ancien `pull()/push()` vers
 `api/collection`, retiré).
 

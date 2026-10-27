@@ -32,11 +32,11 @@ Envoie ce lien à tes amis. Pour mettre à jour le site plus tard : régénère 
 
 Les données sont stockées dans le navigateur de chaque appareil. Pour les synchroniser :
 
-1. Dans l'appli, ouvre une extension, descends en bas de page et clique sur **Synchroniser**.
+1. Dans l'appli, clique sur la roue crantée (en haut à droite) puis sur **Synchroniser mes appareils**.
 2. Clique sur le lien « Crée un jeton sur GitHub » (il faut être connecté à ton compte), garde
    l'option « gist » cochée et rien d'autre, choisis « No expiration », puis « Generate token ».
 3. Copie le jeton (il commence par `ghp_`), colle-le dans l'appli et clique sur **Activer**.
-4. Sur chaque autre appareil : ouvre le site, « Synchroniser », colle le même jeton.
+4. Sur chaque autre appareil : ouvre le site, roue crantée → « Synchroniser mes appareils », colle le même jeton.
 
 Ta collection est alors enregistrée dans un fichier secret (« gist ») de ton compte GitHub, mis à
 jour tout seul quand tu coches une carte. Si les deux appareils ont changé chacun de leur côté,
