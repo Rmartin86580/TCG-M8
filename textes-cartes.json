@@ -1,0 +1,1935 @@
+{
+ "001": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Roses."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "002": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Orange."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "003": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Jade."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "004": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Violettes."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "005": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Jaunes."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "006": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Mauves."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "007": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Vertes."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "008": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Bleues."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "009": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vous pouvez engager cette Essence pour déclencher vos attaques Azur."
+   }
+  ],
+  "illustrateur": "Florent Hauchard & HL"
+ },
+ "010": {
+  "attaques": [
+   {
+    "degats": "50",
+    "nom": "Roi du Silence",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque vous récupérez un PV, engagez ce Joueur."
+   }
+  ],
+  "citation": "Gamberge",
+  "illustrateur": "Mélanie Baptista",
+  "stat": "Def 130"
+ },
+ "011": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "S-Privilège",
+    "texte": null
+   },
+   {
+    "degats": null,
+    "nom": "Glissade",
+    "texte": "Engagez un Joueur adverse."
+   }
+  ],
+  "citation": "Un titre de Vice-Champion de plus !",
+  "illustrateur": "Liu Qian",
+  "stat": "Def 90"
+ },
+ "012": {
+  "attaques": [
+   {
+    "degats": "110",
+    "nom": "Trash-talk",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Engagez un Joueur adverse."
+   }
+  ],
+  "citation": "Prout.",
+  "illustrateur": "Manon Tsukui & HL",
+  "stat": "Def 110"
+ },
+ "013": {
+  "attaques": [
+   {
+    "degats": "60+",
+    "nom": "Confusion",
+    "texte": "+10 par Joueur engagé."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "PROVOCATION",
+    "texte": "L'attaquant face à ce Joueur doit le cibler."
+   }
+  ],
+  "citation": "Toujours pas compris",
+  "illustrateur": "Grace Woo",
+  "stat": "Def 70"
+ },
+ "014": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vos Joueurs ont +30 Attaque jusqu'à la fin du tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Défaussez votre main pour engager un Joueur adverse."
+   }
+  ],
+  "citation": "On n'a pas le droit de le décevoir !",
+  "illustrateur": "Hugo Lucas"
+ },
+ "015": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +10 Attaque et +10 Défense."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque ce Joueur est engagé, vous pouvez bench cet Objet pour piocher 1 carte."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Engagez 2 de vos Joueurs pour engager un Joueur adverse."
+   }
+  ],
+  "citation": "Classique sur classique.",
+  "illustrateur": "Justice Wong"
+ },
+ "016": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Un de vos Joueurs a +10 Défense et gagne Garde jusqu'à la fin du tour adverse."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un de vos Joueurs gagne Garde jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "Ils ne passeront pas.",
+  "illustrateur": "Edward Chee"
+ },
+ "017": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Premier Souffle",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "BUFF",
+    "texte": "Vos autres Joueurs ont +10 Attaque."
+   }
+  ],
+  "citation": "Gentle Mates : c'est comme ça que nous nous appellerons.",
+  "illustrateur": "Umeshu Lovers & Edward Chee",
+  "stat": "Def 90"
+ },
+ "018": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Renvoyez 1 Joueur adverse sans Provocation dans la main de son propriétaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Engagez un Joueur adverse avec Provocation."
+   }
+  ],
+  "citation": "Tout achat d'un bundle augmente votre KDA de 25% en jeu.",
+  "illustrateur": "Edward Chee"
+ },
+ "019": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Votre adversaire choisit entre les deux effets suivants :\n- Piochez 2 cartes.\n- Votre adversaire défausse 2 cartes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "C'est ma direction !",
+  "illustrateur": "Sébastien Iglesias"
+ },
+ "020": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Un Joueur adverse a -30 Defense et votre Joueur sur la même ligne a +30 Attaque jusqu'à la fin du tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un de vos Joueurs gagne Buff +20 Defense jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "On va se régaler potooo",
+  "illustrateur": "Justice Wong"
+ },
+ "021": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Renvoyez tous les Objet Liés à un Joueur dans la main de son propriétaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Renvoyez 1 Objet dans la main de son propriétaire."
+   }
+  ],
+  "citation": "...",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "022": {
+  "attaques": [
+   {
+    "degats": null,
+    "nom": "Omniscience",
+    "texte": "Engagez un Joueur adverse."
+   },
+   {
+    "degats": "160",
+    "nom": "Rotation",
+    "texte": null
+   }
+  ],
+  "citation": "Ça va les questions là ma chérie ? C'est duuur",
+  "illustrateur": "Edward Chee",
+  "stat": "Def 90"
+ },
+ "023": {
+  "attaques": [
+   {
+    "degats": "126",
+    "nom": "Clutch",
+    "texte": null
+   },
+   {
+    "degats": "180",
+    "nom": "World Record",
+    "texte": null
+   }
+  ],
+  "citation": "Flex, flex, man I'm flexin'",
+  "illustrateur": "Rexpo",
+  "stat": "Def 120"
+ },
+ "024": {
+  "attaques": [
+   {
+    "degats": "100",
+    "nom": "Coup de fil",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "BUFF",
+    "texte": "Vos autres Joueurs ont +20 Attaque."
+   }
+  ],
+  "citation": "Allo ? Besoin d'une Houssein en urgence",
+  "illustrateur": "Levinky",
+  "stat": "Def 120"
+ },
+ "025": {
+  "attaques": [
+   {
+    "degats": "130",
+    "nom": "Locked In",
+    "texte": null
+   }
+  ],
+  "citation": "Patrik a pris du ferme",
+  "illustrateur": "Levinky",
+  "stat": "Def 120"
+ },
+ "026": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Engagez un Joueur adverse sans mot-clés."
+   }
+  ],
+  "citation": "ON VEUT JOUER AU JEUUUUUU",
+  "illustrateur": "Aftergani"
+ },
+ "027": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Si vous avez moins de PV que votre adversaire, vos Joueurs ont +20 Attaque jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "J'ai un très mauvais pressentiment",
+  "illustrateur": "Levinky"
+ },
+ "028": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Les attaques de vos Joueurs avec Buff ont + 20 jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "Elles nous craindront",
+  "illustrateur": "Grace Woo"
+ },
+ "029": {
+  "attaques": [
+   {
+    "degats": "80+",
+    "nom": "Demon's Domain",
+    "texte": "+ 20 pour chaque Objet Lié à ce Joueur"
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque vous liez un ou plusieurs Objet à ce Joueur, vous pouvez placer un Objet de votre défausse sur votre Club."
+   }
+  ],
+  "citation": "C'est quoi ce poulet ?",
+  "illustrateur": "Umeshu Lovers",
+  "stat": "Def 120"
+ },
+ "030": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Vos Joueurs liés ne s'engagent pas lors de leur première attaque ce tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un de vos Joueurs gagne Shield jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "La seule équipe française qui gagne devant son public",
+  "illustrateur": "Paiheme"
+ },
+ "031": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Révélez les 6 cartes du dessus de votre Club et ajoutez toutes les cartes Objet révélées à votre main. Défaussez les cartes restantes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "La prochaine Riposte déclenchée a un coût diminué de 1 ce tour."
+   }
+  ],
+  "citation": "Sis thinks she's on the team",
+  "illustrateur": "Acrassan"
+ },
+ "032": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque ce Joueur est vaincu, bench cet Objet à la place de ce Joueur."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouer une carte Objet."
+   }
+  ],
+  "citation": "(Sources) Gentle Mates have reached an agreement with you.",
+  "illustrateur": "Hugo Lucas"
+ },
+ "033": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ciblez un Joueur adverse sans Objet. Il ne peut pas déclencher d'Attaque jusqu'à la fin du tour de l'adversaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Ajoutez une carte Objet de votre défausse à votre main."
+   }
+  ],
+  "citation": "C'était leur seule façon d'arrêter nos M16",
+  "illustrateur": "Romain Billaud"
+ },
+ "034": {
+  "attaques": [
+   {
+    "degats": "60+",
+    "nom": "Baby Shark",
+    "texte": "+10 pour chaque Objet Lié à ce Joueur."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "RIPOSTE",
+    "texte": "Lorsqu'il est vaincu, vous pouvez déclencher une des attaques de ce Joueur pour un coût diminué de 1, en ciblant le Joueur attaquant."
+   }
+  ],
+  "citation": "Il gère la comptabilité du club entre 2 cups",
+  "illustrateur": "Umeshu Lovers",
+  "stat": "Def 90"
+ },
+ "035": {
+  "attaques": [
+   {
+    "degats": "130",
+    "nom": "Eclosion",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "RIPOSTE",
+    "texte": "Lorsqu'il est vaincu, vous pouvez déclencher une des attaques de ce Joueur pour un coût diminué de 1, en ciblant le Joueur attaquant."
+   }
+  ],
+  "citation": "Il commence à pleuvoir",
+  "illustrateur": "Tan Zhi Hui",
+  "stat": "Def 120"
+ },
+ "036": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur gagne Riposte."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un de vos Joueurs gagne Riposte jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "On ne perd pas devant notre public.",
+  "illustrateur": "Romain Billaud"
+ },
+ "037": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Regardez les 4 cartes du dessus de votre Club et ajoutez une carte Objet à votre main. Placez les cartes restantes au-dessus de votre Club dans l'ordre de votre choix."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Mélangez jusqu'à 2 cartes Objet de votre défausse à votre Club."
+   }
+  ],
+  "citation": "Il a les yeux Double Pompe Chasseur, il a le regard qui tue.",
+  "illustrateur": "Justice Wong & HL"
+ },
+ "038": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Défaussez une carte pour jouer la première carte de votre Réserve engagée."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Il a trop pris au sérieux le «muscler son jeu»",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "039": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "What a Save !",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque votre adversaire joue un Joueur, vous pouvez échanger la position de ce Joueur et d'un autre de vos Joueurs."
+   }
+  ],
+  "citation": "Quelle belle journée",
+  "illustrateur": "Liu Qian",
+  "stat": "Def 90"
+ },
+ "040": {
+  "attaques": [
+   {
+    "degats": "60+",
+    "nom": "Hold-Up",
+    "texte": "+10 pour chaque PV que vous avez."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "PROVOCATION",
+    "texte": "L'attaquant face à ce Joueur doit le cibler."
+   }
+  ],
+  "citation": "Qui a peint mon cheval en rose ?",
+  "illustrateur": "Paiheme",
+  "stat": "Def 70"
+ },
+ "041": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "La première fois que votre adversaire récupère un PV ce tour, désengagez un de vos Joueurs."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Désengagez l'un de vos Joueurs."
+   }
+  ],
+  "citation": "...",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "042": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Regardez vos PV et choisissez une carte. Echangez-la avec une carte de votre main."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Défaussez votre premier PV pour placer 1 carte de votre main sur vos PV."
+   }
+  ],
+  "citation": "Call an ambulance… but not for me.",
+  "illustrateur": "Sébastien Iglesias"
+ },
+ "043": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Echangez la position de 2 de vos Joueurs."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "BLBLBLBLBLBLBLBLBLBLBL",
+  "illustrateur": "Xianhui Wang"
+ },
+ "044": {
+  "attaques": [
+   {
+    "degats": "80",
+    "nom": "Pinch",
+    "texte": "Désengagez un autre de vos Joueurs."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Piochez une carte si vous avez plus de 2 PV."
+   }
+  ],
+  "citation": "Deux frères, un fauve.",
+  "illustrateur": "Rexpo",
+  "stat": "Def 140"
+ },
+ "045": {
+  "attaques": [
+   {
+    "degats": null,
+    "nom": "Rêverie",
+    "texte": "Regardez les 4 cartes du dessus de votre Club et placez-les au-dessus ou en dessous de votre Club dans l’ordre de votre choix."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Regardez vos PV et choisissez une carte. Echangez-la avec une carte de votre main."
+   }
+  ],
+  "citation": "Réveillez-vous my CEO ! Il est déjà 15H du matin !",
+  "illustrateur": "Jor Ros",
+  "stat": "Def 70"
+ },
+ "046": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque vous vainquez un Joueur, désengagez une de vos Essences."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Désengagez 1 de vos Joueurs."
+   }
+  ],
+  "citation": "Il y a un nouveau shérif en ville",
+  "illustrateur": "Alex Accorsi"
+ },
+ "047": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Jusqu’à la fin du tour, chaque fois que vous désengagez un Joueur, désengagez une Essence Violette."
+   }
+  ],
+  "citation": "Veni, Vidi, Vici.",
+  "illustrateur": "Aftergani"
+ },
+ "048": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Jusqu’à la fin du tour, la première fois que vous désengagez une Essence, désengagez un Joueur Violet."
+   }
+  ],
+  "citation": "ReVeni, ReVidi, ReVici.",
+  "illustrateur": "Grace Woo"
+ },
+ "049": {
+  "attaques": [
+   {
+    "degats": "50+",
+    "nom": "Dictature",
+    "texte": "+ 20 par essence Jaune controlée."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, vous pouvez défausser une carte pour récuperer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "Pas besoin d’armure, un marcel suffira",
+  "illustrateur": "Than Zhi Hui",
+  "stat": "Def 100"
+ },
+ "050": {
+  "attaques": [
+   {
+    "degats": "150",
+    "nom": "Soutien Constant",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Bench un Joueur adverse engagé sans Provocation."
+   }
+  ],
+  "citation": "Je veux que M8 gagne, j’y crois, j’y crois.",
+  "illustrateur": "Levinky",
+  "stat": "Def 140"
+ },
+ "051": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Télépathie",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, vous pouvez défausser une carte pour récupérer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "Lorsqu’un CEO s’endort, La Planète se réveille.",
+  "illustrateur": "Tan Zhi Hui",
+  "stat": "Def 110"
+ },
+ "052": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Regard Sombre",
+    "texte": null
+   },
+   {
+    "degats": "150",
+    "nom": "Sourire Radieux",
+    "texte": "Mélangez 1 Essence Mauve dans votre Réserve."
+   }
+  ],
+  "citation": "La face cachée de Neptune",
+  "illustrateur": "Edward Chee",
+  "stat": "Def 90"
+ },
+ "053": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +10 Attaque et +10 Défense."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque ce Joueur vainc un Joueur, vous pouvez détruire cet Objet pour piocher 2 cartes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Bench un Objet adverse."
+   }
+  ],
+  "citation": "Je ne vous parle même pas du prochain...",
+  "illustrateur": "Justice Wong"
+ },
+ "054": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Mélangez 1 Essence Mauve dans votre Réserve, vos Joueurs déployés ont +20 sur leurs attaques jusqu’à la fin du tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez la première carte de votre Réserve."
+   }
+  ],
+  "citation": "...",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "055": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Si le premier Joueur qui attaque l’adversaire à ce tour ne vainc aucun Joueur, il gagne Provocation jusqu’à la fin du tour de l’adversaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Bench un Joueur adverse engagé sans Provocation."
+   }
+  ],
+  "citation": "On a vu de belles choses",
+  "illustrateur": "Valonia"
+ },
+ "056": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a -10 Attaque."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque ce Joueur vainc un Joueur, vous pouvez bench cet Objet pour bench un Joueur adverse engagé."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Bench tous vos Joueurs pour mettre fin à la phase de Combat."
+   }
+  ],
+  "citation": "J’en ai jamais entendu parler",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "057": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "AimBot.exe",
+    "texte": null
+   },
+   {
+    "degats": "140",
+    "nom": "Titanic",
+    "texte": null
+   }
+  ],
+  "citation": "Programmé pour gagner",
+  "illustrateur": "Hugo Lucas",
+  "stat": "Def 160"
+ },
+ "058": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Menace Fantôme",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "PROVOCATION",
+    "texte": "L’attaquant face à ce Joueur doit le cibler."
+   }
+  ],
+  "citation": "You’re so nervous",
+  "illustrateur": "Rexpo",
+  "stat": "Def 130"
+ },
+ "059": {
+  "attaques": [
+   {
+    "degats": "40",
+    "nom": "Vroom Vroom",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SHIELD",
+    "texte": "Tant qu’il est en jeu, ce Joueur ignore la première attaque qu’il subit."
+   }
+  ],
+  "citation": "Papa, tonton Itachi a dit des gros mots",
+  "illustrateur": "Jor Ros",
+  "stat": "Def 40"
+ },
+ "060": {
+  "attaques": [
+   {
+    "degats": "150+",
+    "nom": "Aspiration d’âme",
+    "texte": "+100 si l’adversaire a récuperé un PV ce tour."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, vous pouvez défausser une carte pour récuperer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "Souriez My CEO, vous êtes filmé",
+  "illustrateur": "Nicolas Dehghani",
+  "stat": "Def 150"
+ },
+ "061": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Mélangez 3 de vos Essences Mauves dans votre Réserve pour bench un Joueur adverse."
+   }
+  ],
+  "citation": "Un trophée pareil nous était destiné",
+  "illustrateur": "Grace Woo"
+ },
+ "062": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Confusion",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Si vous avez moins de 2 PV, doublez la valeur d’attaque de ce Joueur."
+   }
+  ],
+  "citation": "Yes is a Enzo.",
+  "illustrateur": "Rexpo",
+  "stat": "Def 80"
+ },
+ "063": {
+  "attaques": [
+   {
+    "degats": "180",
+    "nom": "Sh*t On",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Le Joueur adverse sur la même ligne ne peut pas défendre une attaque de ce Joueur ce tour."
+   }
+  ],
+  "citation": "!@/$#%!!",
+  "illustrateur": "Sylvain Repos",
+  "stat": "Def 160"
+ },
+ "064": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Frappe de faute",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque vous récupérez un PV, bench un Objet adverse."
+   }
+  ],
+  "citation": "Il a pris la grosse tête ou quoi ?",
+  "illustrateur": "Sébastien Iglesias",
+  "stat": "Def 90"
+ },
+ "065": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur peut attaquer le Joueur adverse sur sa ligne."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Votre adversaire défausse 1 carte Joueur."
+   }
+  ],
+  "citation": "«J’ai le droit ! C’est moi j’ai fait»",
+  "illustrateur": "Sohee Kim"
+ },
+ "066": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Défaussez 1 carte et engagez 2 Essences pour choisir une Essence adverse engagée et la mélanger dans la Réserve de son propriétaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Engagez 1 Essence adverse."
+   }
+  ],
+  "citation": "On push A, B ou 0+ ?",
+  "illustrateur": "Sébastien Iglesias"
+ },
+ "067": {
+  "attaques": [
+   {
+    "degats": "60",
+    "nom": "Rien à perdre",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Ajoutez jusqu’à un 99% faith depuis votre club à votre main."
+   }
+  ],
+  "citation": "Ils ne savaient pas que c’était impossible...",
+  "illustrateur": "Dexter Maurer",
+  "stat": "Def 60"
+ },
+ "068": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Tout à gagner",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Si 1% chance est déployé, ce Joueur gagne Provocation et Shield."
+   }
+  ],
+  "citation": "... alors ils l’ont fait",
+  "illustrateur": "Dexter Maurer",
+  "stat": "Def 120"
+ },
+ "069": {
+  "attaques": [
+   {
+    "degats": "90+",
+    "nom": "WaWar",
+    "texte": "+20 pour chaque carte que vous avez en main."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque votre adversaire est touché, si ce Joueur est votre seul Joueur déployé, il défausse le PV sans le regarder."
+   }
+  ],
+  "citation": "Paint the Town Pink",
+  "illustrateur": "Levinky",
+  "stat": "Def 130"
+ },
+ "070": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "A la fin de votre première attaque, ajoutez en main le Joueur attaquant et jouez un autre Joueur depuis votre main à la même place."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez 2 Joueurs. A la fin de la phase de Combat, bench-les."
+   }
+  ],
+  "citation": "1. Haneda. 2. Perdre 350€ aux gacha 3. Podium à l’EVO.",
+  "illustrateur": "Paiheme"
+ },
+ "071": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "→ ↓ ↘ + poing",
+    "texte": "A la fin de l’attaque, ajoutez ce Joueur à votre main et vous pouvez jouer un autre Joueur depuis votre main à la place."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "GARDE",
+    "texte": "Ce Joueur peut défendre n’importe quelle attaque."
+   }
+  ],
+  "citation": "C’est pas de l’esport, c’est la FGC.",
+  "illustrateur": "Umeshu Lovers",
+  "stat": "Def 90"
+ },
+ "072": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Regardez la Main de votre adversaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "«Nikof t’as pas les co**lles»",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "073": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Ascension",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque le CEO adverse Lie un Objet à un Joueur, ce Joueur a +20 Défense jusqu’à la fin du tour."
+   }
+  ],
+  "citation": "Sérieux, il est pas trop mignon ?",
+  "illustrateur": "Manon Tsukui",
+  "stat": "Def 110"
+ },
+ "074": {
+  "attaques": [
+   {
+    "degats": "150",
+    "nom": "Déboutonnage",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "GARDE",
+    "texte": "Ce Joueur peut défendre n'importe quelle attaque."
+   }
+  ],
+  "citation": "Ah c’est un peu chiant les gars...",
+  "illustrateur": "Aftergani",
+  "stat": "Def 130"
+ },
+ "075": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Vol",
+    "texte": "Regardez les 5 cartes du dessus de votre Club et liez jusqu’à 1 Objet parmi ces cartes à un autre de vos Joueurs."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Liez 2 Objets de votre défausse à un autre de vos Joueurs."
+   }
+  ],
+  "citation": "Il y a des offres qu’on ne peut pas refuser !",
+  "illustrateur": "Umeshu Lovers",
+  "stat": "Def 140"
+ },
+ "076": {
+  "attaques": [
+   {
+    "degats": "10",
+    "nom": "Déploiement",
+    "texte": "Révélez les 5 cartes du dessus de votre Club et ajoutez une carte Joueur parmi les cartes révélées à votre main. Défaussez les cartes restantes."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "BUFF",
+    "texte": "Vos Joueurs alliés gagnent +10 Défense."
+   }
+  ],
+  "citation": "GENTLE ?!",
+  "illustrateur": "Edward Chee",
+  "stat": "Def 100"
+ },
+ "077": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Déboîtement d’épaule",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque votre adversaire récupère un PV suite à l’attaque de ce Joueur, piochez une carte."
+   }
+  ],
+  "citation": "185 CM, 89KG, 34 ANS",
+  "illustrateur": "Hugo Lucas",
+  "stat": "Def 90"
+ },
+ "078": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Estafilade",
+    "texte": null
+   },
+   {
+    "degats": "120",
+    "nom": "Serment",
+    "texte": null
+   }
+  ],
+  "citation": "La Garde Rose meurt mais ne se rend pas !",
+  "illustrateur": "Justice Wong",
+  "stat": "Def 80"
+ },
+ "079": {
+  "attaques": [
+   {
+    "degats": "110",
+    "nom": "Pré-Clic",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Vous pouvez engager ce Joueur pour bench un Joueur adverse."
+   }
+  ],
+  "citation": "5 duellistes... vraiment ?",
+  "illustrateur": "Edward Chee",
+  "stat": "Def 70"
+ },
+ "080": {
+  "attaques": [
+   {
+    "degats": "100",
+    "nom": "Permutation",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque vous défendez avec ce Joueur, vous pouvez le renvoyer dans votre Club pour jouer un autre Joueur engagé à sa place en tant que défenseur."
+   }
+  ],
+  "citation": "J’y fus pas",
+  "illustrateur": "Jor Ros",
+  "stat": "Def 100"
+ },
+ "081": {
+  "attaques": [
+   {
+    "degats": "190",
+    "nom": "Hexa-Punch",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "RIPOSTE",
+    "texte": "Lorsqu’il est vaincu, vous pouvez déclencher une des attaques de ce Joueur pour un coût diminué de 1, en ciblant le Joueur attaquant."
+   }
+  ],
+  "citation": "Ses manchettes lui permettent d’atteindre 88 clics par seconde",
+  "illustrateur": "Sylvain Repos",
+  "stat": "Def 170"
+ },
+ "082": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Les CEO piochent jusqu’à avoir 4 cartes en main."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Piochez 2 cartes."
+   }
+  ],
+  "citation": "Encore un jackpot comme par hasard...",
+  "illustrateur": "Edward Chee"
+ },
+ "083": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Piochez 3 cartes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Regardez les 5 cartes du dessus de votre Club et ajoutez une carte Joueur à votre main. Remettez les autres cartes en dessous de votre Club dans l’ordre de votre choix."
+   }
+  ],
+  "citation": "L’échange est équivalent, mais à notre avantage quand même.",
+  "illustrateur": "Justice Wong"
+ },
+ "084": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque vous déclenchez une attaque, vous pouvez bench cet Objet pour qu’elle coûte 2 Essence Neutre."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Les prochaines attaques de votre adversaire coûtent une Essence Neutre de plus."
+   }
+  ],
+  "citation": "La vraie bague de mariage de Gotaga",
+  "illustrateur": "Hugo Lucas"
+ },
+ "085": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +30 Attaque."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Ajoutez une carte Moment de votre défausse à votre main."
+   }
+  ],
+  "citation": "Ah là on est bien cuits.",
+  "illustrateur": "Hugo Lucas"
+ },
+ "086": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque ce Joueur est engagé, vous pouvez bench cet Objet pour le désengager. Ce Joueur ne peut plus attaquer ce tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Vos Objet bench sont ajoutés à votre main jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "All roads lead to the slip",
+  "illustrateur": "Pema Horeau"
+ },
+ "087": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +30 Défense."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Je vais lui offrir un code qu'il ne pourra pas refuser",
+  "illustrateur": "Gadner Raph"
+ },
+ "088": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +15 Attaque."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque vous déclenchez une attaque avec ce Joueur, vous pouvez défausser jusqu'à 3 cartes pour avoir +10 Attaque pour chaque carte défaussée."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Défaussez une carte et piochez une carte. Si la carte défaussée est une carte Joueur, un Joueur adverse a -30 Attaque."
+   }
+  ],
+  "citation": "Les temps difficiles créent des supporters forts.",
+  "illustrateur": "Alex Accorsi"
+ },
+ "089": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +10 Défense pour chaque Objet Lié à lui."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Combien !?!",
+  "illustrateur": "Romain Billaud"
+ },
+ "090": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque l'adversaire attaque cette ligne, mélangez une carte de votre défausse dans votre Club et piochez 1 carte."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Ceintre disponible seulement dans le TCG Gentle Mates",
+  "illustrateur": "Manon Tsukui"
+ },
+ "091": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Votre adversaire choisit entre les deux effets suivants : - Piochez 3 cartes et votre adversaire pioche 2 cartes. - Votre adversaire défausse 2 cartes et vous défaussez 1 carte."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Evidemment, personne ne le savait...",
+  "illustrateur": "Zéphyr"
+ },
+ "092": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Bench un Objet adverse."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un Joueur adverse sans Objet ne peut plus attaquer jusqu'à la fin du tour."
+   }
+  ],
+  "citation": "Si seulement j'avais une belle polaire à mettre...",
+  "illustrateur": "Edward Chee"
+ },
+ "093": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Révélez vos PV."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Père Leakof, raconte nous une histoire.",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "094": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Chaque fois que vous piochez à ce tour, vous piochez une carte de plus."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Votre adversaire doit déclencher une attaque de plus si possible."
+   }
+  ],
+  "citation": "Présent !",
+  "illustrateur": "Romain Billaud"
+ },
+ "095": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Si vous avez un Joueur seul sur sa ligne, piochez 2 cartes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Je demandais juste comment ça va",
+  "illustrateur": "Alex Accorsi"
+ },
+ "096": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "La première fois que votre adversaire récupère un PV ce tour, les Joueurs adverses ont -20 Défense."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un Joueur adverse a -20 Attaque."
+   }
+  ],
+  "citation": "Plus rapide que la notif.",
+  "illustrateur": "Umeshu Lovers"
+ },
+ "097": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "La première Attaque que vous déclenchez à ce tour, coûte 1 Essence Neutre de moins."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "2 de vos Joueurs ont +20 Défense."
+   }
+  ],
+  "citation": "«Et pourtant, elle tourne»",
+  "illustrateur": "Stwensz"
+ },
+ "098": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Mélangez 6 cartes Joueur de votre défausse à votre Club."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Toujours kaiwaiiné, toujours cute",
+  "illustrateur": "Paiheme"
+ },
+ "099": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Révélez les 6 cartes du dessus de votre Club et ajoutez une carte Moment parmi les cartes révélées à votre main. Défaussez les cartes restantes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Y'a plus de kawaiiné",
+  "illustrateur": "Aftergani"
+ },
+ "100": {
+  "attaques": [
+   {
+    "degats": "160",
+    "nom": "Doig BYE BYE BYE",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu'il est vaincu, vous pouvez défausser une carte pour récupérer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "Tu es capable de réaliser tes rêves",
+  "illustrateur": "Manon Tsukui",
+  "stat": "Def 130"
+ },
+ "101": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Choc D'Août",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Si ce Joueur est désengagé, l'attaquant face à lui doit le cibler."
+   }
+  ],
+  "citation": "Pour avoir du style en toutes Situations.",
+  "illustrateur": "Romain Billaud",
+  "stat": "Def 120"
+ },
+ "102": {
+  "attaques": [
+   {
+    "degats": "100",
+    "nom": "Hyper-Vitesse",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Vous pouvez engager 2 Essence pour piocher 2 cartes."
+   }
+  ],
+  "citation": "How should I feel ?",
+  "illustrateur": "Tan Zhi Hui",
+  "stat": "Def 70"
+ },
+ "103": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Déclenchez l'effet d'entrée d'un Joueur de votre défausse."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Défaussez votre main et piochez autant de cartes que le nombre de cartes défaussées."
+   }
+  ],
+  "citation": "Merci à vous",
+  "illustrateur": "Aftergani"
+ },
+ "104": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Désengagez un de vos Joueurs."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Enfin diplômée !",
+  "illustrateur": "Elsa Clidi & Laura Vuillerme"
+ },
+ "105": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +20 Attaque."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque votre adversaire déclare un défenseur sur l'attaque de ce Joueur, révélez la carte du dessus de votre Club. Si c'est une carte Joueur ce Joueur a +20 Attaque."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Révélez la carte du dessus de votre Club. Si c'est une carte Joueur, jouez-la."
+   }
+  ],
+  "citation": "L'endroit parfait pour farmer du métal.",
+  "illustrateur": "Alex Accorsi"
+ },
+ "106": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Lorsque votre adversaire déclare un défenseur sur l’attaque de ce Joueur, vous pouvez bench cet Objet pour désengager ce Joueur et annuler l’attaque. Ce Joueur ne peut plus attaquer jusqu’à la fin du tour."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Un Joueur adverse ne peut plus attaquer jusqu’à la fin du tour."
+   }
+  ],
+  "citation": "À jamais l’écharpe de la victoire.",
+  "illustrateur": "Romain Billaud"
+ },
+ "107": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Engagez 2 Essences pour piocher 3 cartes."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Désengagez 2 Essences."
+   }
+  ],
+  "citation": "À jamais les 5ᵉˢ.",
+  "illustrateur": "Rexpo"
+ },
+ "108": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Renvoyez tous vos Joueurs dans la main de leur propriétaire."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Ajoutez une carte Joueur de votre défausse à votre main."
+   }
+  ],
+  "citation": "Le live va bientôt commencer...",
+  "illustrateur": "Pema Horeau"
+ },
+ "109": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Bench un de vos Joueurs et votre adversaire défausse une carte."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Oh non, trop deg pour vous...",
+  "illustrateur": "Benoit Barraqué"
+ },
+ "110": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Regardez les 5 cartes du dessus du Club adverse."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Jouez cette carte."
+   }
+  ],
+  "citation": "Ok donc pour le merch on laisse plutôt Brawks leaker.",
+  "illustrateur": "Jor Ros"
+ },
+ "111": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "La deuxième attaque que vous déclenchez à ce tour, coûte 2 Essences non neutre de moins."
+   },
+   {
+    "motcle": "Résilience",
+    "texte": "Vos Joueurs ont +10 Défense jusqu’à la fin du tour."
+   }
+  ],
+  "citation": "Merci de bien retirer vos chaussures",
+  "illustrateur": "Paiheme"
+ },
+ "112": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Avenir Radieux",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque le CEO adverse attaque cette ligne, piochez 1 carte."
+   }
+  ],
+  "citation": "L’espoir est le dernier à mourir.",
+  "illustrateur": "Aftergani",
+  "stat": "Def 130"
+ },
+ "113": {
+  "attaques": [
+   {
+    "degats": "150",
+    "nom": "Coup d’jus",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Si vous avez 3 Joueurs Roses renvoyez un Joueur adverse dans sa main."
+   }
+  ],
+  "citation": "俺たちが世界一のFPS構造を創り上げてやる！",
+  "illustrateur": "Jor Ros",
+  "stat": "Def 150"
+ },
+ "114": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Piochez 1 carte pour chaque Joueur adverse engagé."
+   }
+  ],
+  "citation": "Ça veut dire «Squeezie, Brawks et Gotaga» en gros",
+  "illustrateur": "Aftergani"
+ },
+ "115": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Un de vos Joueurs gagne Riposte et Shield jusqu’à la fin du tour adverse."
+   }
+  ],
+  "citation": "J’ai voulu faire Top 1",
+  "illustrateur": "Dexter Maurer"
+ },
+ "116": {
+  "attaques": [
+   {
+    "degats": null,
+    "nom": "Foudre de Rage",
+    "texte": "Bench un Joueur adverse. Mélangez 1 de vos Essences Mauves dans votre Réserve."
+   },
+   {
+    "degats": "200",
+    "nom": "Éclairs Vengeurs",
+    "texte": "Mélangez 2 de vos Essences Mauves dans votre Réserve."
+   }
+  ],
+  "citation": "... qu’on nous appelle les PARIS GENTLE MATES",
+  "illustrateur": "Syd Mills",
+  "stat": "Def 180"
+ },
+ "117": {
+  "attaques": [
+   {
+    "degats": "140",
+    "nom": "Sang Froid",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Bench jusqu’à un Baby Driver que vous controlez et piochez 3 cartes."
+   }
+  ],
+  "citation": "Le prochain CachéDansLeBuisson, c’est toi !",
+  "illustrateur": "Levinky",
+  "stat": "Def 120"
+ },
+ "118": {
+  "attaques": [
+   {
+    "degats": "150",
+    "nom": "Cancel Slide",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, vous pouvez défausser une carte pour récupérer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "OH OH OH BACHATA",
+  "illustrateur": "Tan Zhi Hui",
+  "stat": "Def 90"
+ },
+ "119": {
+  "attaques": [
+   {
+    "degats": "10",
+    "nom": "Contre-Pitre",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "PROVOCATION",
+    "texte": "L'attaquant face à ce Joueur doit le cibler."
+   }
+  ],
+  "citation": "Tu crois qu’on joue alors qu’on travaille",
+  "illustrateur": "Nicolas Dehghani",
+  "stat": "Def 110"
+ },
+ "120": {
+  "attaques": [
+   {
+    "degats": "120",
+    "nom": "Mâchouille",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "GARDE",
+    "texte": "Ce Joueur peut défendre n'importe quelle attaque."
+   }
+  ],
+  "citation": "Je n’ai aucun adversaire.",
+  "illustrateur": "Jor Ros",
+  "stat": "Def 150"
+ },
+ "121": {
+  "attaques": [
+   {
+    "degats": "160",
+    "nom": "Coup de fil",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "RIPOSTE",
+    "texte": "Lorsqu’il est vaincu, vous pouvez déclencher une des attaques de ce Joueur pour un coût diminué de 1, en ciblant le Joueur attaquant."
+   }
+  ],
+  "citation": "Merci, Ô grand Squeezie, pour ta générosité",
+  "illustrateur": "Gobli Prin",
+  "stat": "Def 140"
+ },
+ "122": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Ce Joueur a +10 Défense pour chaque Objet Lié à lui."
+   },
+   {
+    "motcle": null,
+    "texte": "Lorsque le CEO adverse attaque cette ligne, mélangez une carte de votre défausse dans votre club et piochez 1 carte."
+   }
+  ],
+  "citation": "Si Gentle Mates n’a plus aucun fan c’est que je suis mort",
+  "illustrateur": "Dexter Maurer"
+ },
+ "123": {
+  "attaques": [
+   {
+    "degats": "100",
+    "nom": "Kalinade",
+    "texte": null
+   },
+   {
+    "degats": "180",
+    "nom": "Victoire Royale",
+    "texte": null
+   }
+  ],
+  "citation": "Vous savez que j’ai participé à la première World Cup moi ?",
+  "illustrateur": "Levinky",
+  "stat": "Def 160"
+ },
+ "125": {
+  "attaques": [
+   {
+    "degats": "60+",
+    "nom": "UltiM8um",
+    "texte": "+ 60 pour chaque PV récupéré par votre adversaire ce tour."
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, vous pouvez défausser une carte pour récupérer ce Joueur dans votre main."
+   }
+  ],
+  "citation": "Je reviens mais à une condition...",
+  "illustrateur": "Gobli Prin",
+  "stat": "Def 60"
+ },
+ "P01": {
+  "capacites": [
+   {
+    "motcle": "Effet",
+    "texte": "Cherchez 1 Joueur Mauve ou 1 Essence Mauve dans votre Club, montrez-la au CEO adverse puis mélangez votre Club."
+   }
+  ],
+  "citation": "J'y fus",
+  "illustrateur": "Justice Wong & HL"
+ },
+ "P02": {
+  "capacites": [
+   {
+    "motcle": "Effet",
+    "texte": "Cherchez 1 Joueur Mauve ou 1 Essence Mauve dans votre Club, montrez-la au CEO adverse puis mélangez votre Club."
+   }
+  ],
+  "citation": "J'y fus",
+  "illustrateur": "Rexpo"
+ },
+ "P05": {
+  "attaques": [
+   {
+    "degats": "90",
+    "nom": "Premier Souffle",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "LÉGION",
+    "texte": "Lorsqu’il est vaincu, le Joueur retourne dans votre Main. Défaussez les Coachs associés."
+   }
+  ],
+  "citation": "Gentle Mates : c’est comme ça que nous nous appellerons.",
+  "illustrateur": "Levinky",
+  "stat": "Def 60"
+ },
+ "P06": {
+  "attaques": [
+   {
+    "degats": "160",
+    "nom": "Coup de fil",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "RIPOSTE",
+    "texte": "Lorsqu’il est vaincu, ce Joueur active sa Capacité d’Attaque la plus puissante."
+   }
+  ],
+  "citation": "Merci, Ô grand Squeezie, pour ta générosité",
+  "illustrateur": "Gobli Prin",
+  "stat": "Def 140"
+ }
+}

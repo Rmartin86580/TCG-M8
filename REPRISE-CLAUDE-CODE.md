@@ -334,6 +334,33 @@ l'utilisateur la redemande.
 cases vides en pointillés ; l'utilisateur a jugé qu'elle « n'apporte rien ». Entièrement supprimée
 du code (pas de trace dans `build_html.py`). Ne pas la reproposer telle quelle.
 
+**Fiche carte retravaillée (28/10/2026).** `open(n)` mémorise la liste affichée (`navList`) puis appelle
+`showCard(n)` ; flèches ‹ › en haut du panneau avec compteur « 5 / 133 », flèches du clavier et glisser
+l'image à gauche/droite (`stepCard`). Image plus grande (330 px, 290 px sur mobile), toucher = plein écran
+(`zoomCard`, `#lbox`, Échap ou toucher pour fermer). Blocs : « Exemplaires possédés » (Normale / Reverse +
+Doublons, plus de « — celle du classeur »), « État & notes », puis `<details class="pmore">` « Plus de
+détails » (prix, valeur, date, emplacement, « Une version reverse existe ? ») ouvert seulement si l'un de
+ces champs est rempli. Demandé par l'utilisateur ; « possession en haut » refusé.
+
+**Partage par lien (28/10/2026).** Écran Comparer : bouton « Partager ma collection » (`openShare`) →
+lien `…/TCG-M8/#ami=<données>` (`shareLink`, `packShare` : JSON `{v,p:prénom,c:{n:[qn,qr,(rev)]}}` compressé
+deflate-raw + base64url ; préfixe « z » compressé, « r » brut). Uniquement cartes + quantités, jamais prix ni
+notes ; photo figée à l'instant du partage. À l'ouverture d'un lien (`importFriendFromHash`, en fin de script)
+l'ami est ajouté (même prénom = remplacé), le `#` est retiré de l'adresse et on arrive sur Comparer. Les amis
+sont maintenant gardés sur l'appareil (`m8tcg.friends`, format compact, `loadFriends`/`saveFriends`), les
+fichiers importés aussi ; prénom saisi gardé dans `m8tcg.pseudo`. Bug corrigé au passage : `loadBrand()`
+redessinait la collection par-dessus l'écran Comparer/Stats quand le dos de carte arrivait en retard.
+Pas de serveur, pas de jeton ; l'import par fichier JSON reste possible.
+
+**Texte des cartes dans la fiche (28/10/2026).** Le texte (stat Def/Att, attaques + dégâts, capacités avec
+mot-clé, citation, illustrateur) n'existe nulle part en données : il est imprimé sur les visuels. Il a été
+recopié en lisant les 131 images (6 agents en parallèle, une carte vérifiée à l'œil) dans
+`textes-cartes.json` (clé = numéro ; 128 cartes, absentes : 124, 126, 127 encore floues ; P03/P04 sans
+image). `build_html.py` l'injecte (`__TEXTES__` → `TEXTES`), `textBlockHTML(n)` l'affiche dans la fiche et
+`cardText(n)` fait que la barre de recherche cherche aussi dans ce texte. Les coûts d'attaque (symboles
+d'essence) ne sont pas transcrits ; les symboles au milieu d'une phrase ont été retirés. Pour une nouvelle
+carte dévoilée : ajouter son entrée dans `textes-cartes.json` puis relancer `python build_html.py`.
+
 **Vue liste refaite (27/10/2026).** L'ancien tableau de 13 colonnes (N°, Nom, Rareté, Type, Essence,
 Norm., Rev., Reverse ?, État, Prix, Valeur, Emplacement, Statut) est remplacé par une liste de lignes
 (`renderList`, `rowHTML`, `bindRow`) : miniature, numéro, nom, rareté · essence avec point de

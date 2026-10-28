@@ -24,6 +24,15 @@ for r in range(2, 200):
 print(len(cards), "cartes")
 DATA = json.dumps(cards, ensure_ascii=False, separators=(",", ":"))
 
+# Texte imprimé sur les cartes (effets, attaques, citation), recopié depuis les visuels : textes-cartes.json
+TEXTES = {}
+_tpath = os.path.join(BASE_DIR, "textes-cartes.json")
+if os.path.exists(_tpath):
+    with open(_tpath, encoding="utf-8") as f:
+        TEXTES = json.load(f)
+print(len(TEXTES), "cartes avec texte")
+TEXTES_JSON = json.dumps(TEXTES, ensure_ascii=False, separators=(",", ":"))
+
 HTML = r"""<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -415,17 +424,49 @@ td.num{font-variant-numeric:tabular-nums}
 .panel .pnum{font-family:var(--display); color:var(--dim); font-variant-numeric:tabular-nums; font-size:13px}
 .pnum-ext-logo{height:22px; width:auto; vertical-align:-6px; object-fit:contain}
 .pnum-ext-logo-txt{font-family:var(--display); color:var(--dim); font-size:13px}
-.panel h2{font-size:22px; margin:2px 40px 10px 0; line-height:1.2}
+.panel h2{font-size:22px; margin:8px 40px 10px 0; line-height:1.2}
 .tags{display:flex; gap:7px; flex-wrap:wrap; margin-bottom:16px}
 .tag{font-size:12px; padding:3px 9px; border-radius:999px; border:1px solid var(--line); color:var(--muted)}
 .tag.ess{color:var(--essence,var(--neutre)); border-color:currentColor}
 select.tag{appearance:none; -webkit-appearance:none; -moz-appearance:none; background:var(--surface);
   font:inherit; cursor:pointer}
 select.tag.ess option{background:var(--surface-2); color:var(--ink)}
-.preview{aspect-ratio:5/7; max-height:280px; margin:0 auto 16px; background:var(--surface);
+.preview{aspect-ratio:5/7; width:min(100%,330px); margin:0 auto 16px; background:var(--surface);
   border:1px solid var(--line); border-radius:var(--r); display:grid; place-items:center; overflow:hidden;
   box-shadow:var(--shadow-lg)}
+.preview.zoomable{cursor:zoom-in}
+@media (max-width:640px){ .preview{width:min(74%,290px)} }
 .preview img{width:100%; height:100%; object-fit:contain}
+.pnav{position:absolute; top:14px; right:54px; display:flex; align-items:center; gap:6px;
+  font-family:var(--display); font-size:12px; color:var(--dim); font-variant-numeric:tabular-nums}
+.pnav button{background:var(--surface); border:1px solid var(--line); border-radius:8px; width:32px; height:32px;
+  cursor:pointer; color:var(--muted); font-size:19px; line-height:1}
+.pnav button:hover:not([disabled]){color:var(--ink); border-color:var(--dim)}
+.pnav button[disabled]{opacity:.3; cursor:default}
+.ptext h3{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.ptext .tstat{color:var(--essence,var(--neutre)); font-family:var(--display); font-size:13px; letter-spacing:0; text-transform:none}
+.ptext p{margin:0; font-size:13.5px; line-height:1.45; color:var(--ink)}
+.tatk,.tcap{display:grid; gap:3px}
+.tatk + .tatk,.tatk + .tcap,.tcap + .tcap,.tcap + .tatk{padding-top:11px; border-top:1px solid var(--line)}
+.tatkh{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
+.tatkh b{font-size:14.5px}
+.tdeg{font-family:var(--display); font-size:17px; color:var(--essence,var(--neutre))}
+.tkw{justify-self:start; font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  padding:2px 9px; border-radius:999px; color:var(--essence,var(--neutre)); border:1px solid currentColor}
+.ptext .tquote{font-style:italic; color:var(--muted); padding-top:4px}
+.ptext .tillus{font-size:11.5px; color:var(--dim)}
+.pmore{display:block}
+.pmore summary{cursor:pointer; list-style:none; font-size:11px; color:var(--dim); font-weight:600;
+  text-transform:uppercase; letter-spacing:.05em}
+.pmore summary::-webkit-details-marker{display:none}
+.pmore summary::before{content:"▸"; display:inline-block; width:14px; transition:transform .15s}
+.pmore[open] summary::before{transform:rotate(90deg)}
+.pmore summary small{text-transform:none; letter-spacing:0; font-weight:400; margin-left:6px}
+.pmorebody{display:grid; gap:12px; margin-top:12px}
+.lbox{position:fixed; inset:0; z-index:70; background:rgba(8,5,14,.94); display:none; place-items:center;
+  padding:16px; cursor:zoom-out}
+.lbox.open{display:grid}
+.lbox img{max-width:100%; max-height:100%; object-fit:contain; border-radius:10px}
 .preview span{color:var(--dim); font-size:13px; padding:0 20px; text-align:center}
 .pblock{
   background:linear-gradient(160deg, var(--bg-2), var(--surface) 140%); border:1px solid var(--line);
@@ -574,6 +615,7 @@ select.tag.ess option{background:var(--surface-2); color:var(--ink)}
 const IMG = __IMAGES__;
 function asset(k){ return IMG[k] || null; }
 const BASE = __DATA__;
+const TEXTES = __TEXTES__;   /* texte imprimé sur les cartes, par numéro */
 const KEY = "m8tcg.v1";
 const XKEY = "m8tcg.extra";
 const OVKEY = "m8tcg.overrides";
@@ -955,7 +997,36 @@ function goHome(){
 
 /* ---------- filtres ---------- */
 let view="grid", sortBy="n", query="";
-let FRIENDS=[];
+/* amis de l'écran Comparer : gardés sur l'appareil (quantités seulement, pas tes prix ni tes notes) */
+const FRKEY="m8tcg.friends", PSKEY="m8tcg.pseudo";
+const okKey=n=>/^[\w-]{1,12}$/.test(n) && n!=="__proto__";
+function compactData(d){
+  const o={};
+  Object.keys(d||{}).forEach(n=>{
+    const s=d[n]||{}, a=+s.qn||0, b=+s.qr||0;
+    if(a||b||s.rev==="Oui"||s.rev==="Non") o[n]=(s.rev==="Oui"||s.rev==="Non")?[a,b,s.rev]:[a,b];
+  });
+  return o;
+}
+function expandData(c){
+  const d={}; let k=0;
+  Object.keys(c||{}).forEach(n=>{
+    if(!okKey(n) || ++k>3000 || !Array.isArray(c[n])) return;
+    const v=c[n];
+    d[n]={qn:Math.max(0,Math.min(999,+v[0]||0)), qr:Math.max(0,Math.min(999,+v[1]||0)), rev:(v[2]==="Oui"||v[2]==="Non")?v[2]:""};
+  });
+  return d;
+}
+function saveFriends(){
+  try{ localStorage.setItem(FRKEY, JSON.stringify(FRIENDS.map(f=>({name:f.name,c:compactData(f.data)})))); }catch(e){}
+}
+function loadFriends(){
+  try{
+    const a=JSON.parse(localStorage.getItem(FRKEY)||"[]");
+    return a.filter(f=>f && f.name && f.c).map(f=>({name:String(f.name).slice(0,30), data:expandData(f.c)}));
+  }catch(e){ return []; }
+}
+let FRIENDS=loadFriends();
 let fSt=new Set(), fRa=new Set(), fEs=new Set();
 
 function chip(host, label, active, onclick, color){
@@ -976,11 +1047,36 @@ function buildFilters(){
   ESSLIST.forEach(e=>chip(es,e,fEs.has(e),()=>{fEs.has(e)?fEs.delete(e):fEs.add(e); render();},ESS[e]));
 }
 
+/* tout le texte d'une carte en minuscules, pour la recherche (calculé une fois) */
+const _txtCache={};
+function cardText(n){
+  if(_txtCache[n]!==undefined) return _txtCache[n];
+  const t=TEXTES[n]; let s="";
+  if(t){
+    s=[(t.attaques||[]).map(a=>[a.nom,a.texte].join(" ")).join(" "),
+       (t.capacites||[]).map(a=>[a.motcle,a.texte].join(" ")).join(" "),
+       t.citation, t.illustrateur].filter(Boolean).join(" ").toLowerCase();
+  }
+  return _txtCache[n]=s;
+}
+function textBlockHTML(n){
+  const t=TEXTES[n];
+  if(!t) return "";
+  const e=cmpEsc, parts=[];
+  (t.attaques||[]).forEach(a=>parts.push(`<div class="tatk"><div class="tatkh"><b>${e(a.nom)}</b>${a.degats?`<span class="tdeg">${e(a.degats)}</span>`:""}</div>${a.texte?`<p>${e(a.texte)}</p>`:""}</div>`));
+  (t.capacites||[]).forEach(a=>parts.push(`<div class="tcap">${a.motcle?`<span class="tkw">${e(a.motcle)}</span>`:""}<p>${e(a.texte)}</p></div>`));
+  if(!parts.length && !t.citation && !t.illustrateur && !t.stat) return "";
+  return `<section class="pblock ptext"><h3>Texte de la carte${t.stat?`<span class="tstat">${e(t.stat)}</span>`:""}</h3>
+    ${parts.join("")}
+    ${t.citation?`<p class="tquote">« ${e(t.citation)} »</p>`:""}
+    ${t.illustrateur?`<p class="tillus">Illustration : ${e(t.illustrateur)}</p>`:""}</section>`;
+}
+
 function visible(){
   const q=query.trim().toLowerCase();
   return CARDS.filter(c=>{
     if(currentExt && (c.ext||"Tout Commence Ici")!==currentExt) return false;
-    if(q && !(c.nom.toLowerCase().includes(q) || c.n.toLowerCase().includes(q))) return false;
+    if(q && !(c.nom.toLowerCase().includes(q) || c.n.toLowerCase().includes(q) || cardText(c.n).includes(q))) return false;
     if(fRa.size && !fRa.has(c.rarete)) return false;
     if(fEs.size && !fEs.has(effEssence(c,store[c.n]))) return false;
     if(fSt.size && !(fSt.has(statut(c.n)) || (fSt.has("doublon") && dupOf(store,c.n)>0))) return false;
@@ -1044,7 +1140,8 @@ async function loadBrand(){
     h.classList.add("banner");
   }
   const back=asset("dos-carte") || await first(["logo/dos-carte.png","logo/dos-carte.jpg","logo/dos-carte.webp"]);
-  if(back){ window.CARDBACK=back; render(); }
+  /* le dos de carte arrive après coup : on ne redessine la collection que si on est sur cet onglet */
+  if(back){ window.CARDBACK=back; if(document.getElementById("tColl").getAttribute("aria-pressed")==="true") render(); }
 }
 
 /* ---------- bloc quantités d'une vignette ---------- */
@@ -1273,14 +1370,41 @@ function stats(){
 
 /* ---------- panneau ---------- */
 let current=null;
+let navList=[];   /* cartes parcourues par les flèches : la liste affichée au moment de l'ouverture */
 function open(n){
+  navList=visible().map(x=>x.n);
+  if(!navList.includes(n)) navList=[n];
+  showCard(n);
+}
+function stepCard(d){
+  const i=navList.indexOf(current), j=i+d;
+  if(i<0 || j<0 || j>=navList.length) return;
+  showCard(navList[j]);
+  document.getElementById("panel").scrollTop=0;
+}
+function zoomCard(src, alt){
+  let b=document.getElementById("lbox");
+  if(!b){
+    b=document.createElement("div"); b.id="lbox"; b.className="lbox";
+    b.innerHTML=`<img alt="">`; b.onclick=()=>b.classList.remove("open");
+    document.body.appendChild(b);
+  }
+  const im=b.querySelector("img"); im.src=src; im.alt=alt||"";
+  b.classList.add("open");
+}
+function showCard(n){
   current=n;
   const c=CARDS.find(x=>x.n===n), s=S(n);
   const p=document.getElementById("panel");
   const ess=effEssence(c,s);
+  const pos=navList.indexOf(n);
+  const more=!!(s.prix||s.val||s.date||s.loc||s.rev);
   p.style.setProperty("--essence",`var(${ESS[ess]||"--neutre"})`);
   p.innerHTML=`
     <button class="close" id="pClose" aria-label="Fermer">×</button>
+    ${navList.length>1?`<div class="pnav"><button id="pPrevCard" aria-label="Carte précédente"${pos<=0?" disabled":""}>‹</button>
+      <span>${pos+1} / ${navList.length}</span>
+      <button id="pNextCard" aria-label="Carte suivante"${pos>=navList.length-1?" disabled":""}>›</button></div>`:""}
     <div class="pnum">Carte ${c.n} · ${extLogo(c.ext||"Tout Commence Ici","pnum-ext-logo")}</div>
     <h2>${c.nom}</h2>
     <div class="tags">
@@ -1293,42 +1417,56 @@ function open(n){
     </div>
     <div class="preview" id="pPrev"></div>
     <div class="form">
+      ${textBlockHTML(c.n)}
       <section class="pblock">
         <h3>Exemplaires possédés</h3>
-        <label>Une version reverse existe&nbsp;?
-          <select data-f="rev">
-            <option value=""${s.rev===""?" selected":""}>Automatique (${autoRev(c)?"oui":"non"}, selon la rareté)</option>
-            <option value="Oui"${s.rev==="Oui"?" selected":""}>Oui, corriger</option>
-            <option value="Non"${s.rev==="Non"?" selected":""}>Non, corriger</option>
-          </select></label>
         <div id="pOwn"></div>
       </section>
       <section class="pblock">
-        <h3>État &amp; valeur</h3>
+        <h3>État &amp; notes</h3>
         <label>État
           <select data-f="etat">${ETATS.map(e=>
             `<option value="${e}"${s.etat===e?" selected":""}>${e||"Non renseigné"}</option>`).join("")}</select></label>
-        <div class="pair">
-          <label>Prix payé (€)<input type="number" step="0.01" min="0" data-f="prix" value="${s.prix}"></label>
-          <label>Valeur estimée (€)<input type="number" step="0.01" min="0" data-f="val" value="${s.val}"></label>
-        </div>
-      </section>
-      <section class="pblock">
-        <h3>Provenance &amp; notes</h3>
-        <div class="pair">
-          <label>Date d'acquisition<input type="date" data-f="date" value="${s.date}"></label>
-          <label>Emplacement<input type="text" data-f="loc" value="${s.loc}" placeholder="Classeur 1, page 3"></label>
-        </div>
         <label>Notes<textarea data-f="notes" placeholder="Signature, défaut, échange en cours…">${s.notes}</textarea></label>
       </section>
+      <details class="pblock pmore"${more?" open":""}>
+        <summary>Plus de détails <small>prix, valeur, date, emplacement</small></summary>
+        <div class="pmorebody">
+          <div class="pair">
+            <label>Prix payé (€)<input type="number" step="0.01" min="0" data-f="prix" value="${s.prix}"></label>
+            <label>Valeur estimée (€)<input type="number" step="0.01" min="0" data-f="val" value="${s.val}"></label>
+          </div>
+          <div class="pair">
+            <label>Date d'acquisition<input type="date" data-f="date" value="${s.date}"></label>
+            <label>Emplacement<input type="text" data-f="loc" value="${s.loc}" placeholder="Classeur 1, page 3"></label>
+          </div>
+          <label>Une version reverse existe&nbsp;?
+            <select data-f="rev">
+              <option value=""${s.rev===""?" selected":""}>Automatique (${autoRev(c)?"oui":"non"}, selon la rareté)</option>
+              <option value="Oui"${s.rev==="Oui"?" selected":""}>Oui, corriger</option>
+              <option value="Non"${s.rev==="Non"?" selected":""}>Non, corriger</option>
+            </select></label>
+        </div>
+      </details>
       ${c.note?`<p class="hint">${c.note}</p>`:""}
       ${isExtra(c.n)?`<button class="btn warn" id="delCard">Retirer cette carte de la liste</button>`:""}
     </div>`;
   const prev=document.getElementById("pPrev");
   const img=new Image();
-  img.onload=()=>{ prev.innerHTML=""; prev.appendChild(img); };
+  img.onload=()=>{ prev.innerHTML=""; prev.appendChild(img); prev.classList.add("zoomable");
+    prev.onclick=()=>zoomCard(img.src,c.nom); };
   img.onerror=()=>{ prev.innerHTML=`<span>Aucune image trouvée pour <b>images-cartes/${c.n}.png</b></span>`; };
   img.src=cardSrc(c.n); img.alt=c.nom;
+  /* glisser l'image vers la gauche / la droite = carte suivante / précédente */
+  let sx=0, sy=0;
+  prev.addEventListener("touchstart",e=>{ sx=e.changedTouches[0].clientX; sy=e.changedTouches[0].clientY; },{passive:true});
+  prev.addEventListener("touchend",e=>{
+    const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>60 && Math.abs(dy)<45){ e.preventDefault(); stepCard(dx<0?1:-1); }
+  });
+  const pb=document.getElementById("pPrevCard"), nb=document.getElementById("pNextCard");
+  if(pb) pb.onclick=()=>stepCard(-1);
+  if(nb) nb.onclick=()=>stepCard(1);
 
   function pLine(k,lab){
     const v=+S(n)[k]||0, on=v>0, dup=Math.max(0,v-1);
@@ -1343,7 +1481,7 @@ function open(n){
   }
   function paintOwn(){
     const host=document.getElementById("pOwn");
-    host.innerHTML=pLine("qn","Normale — celle du classeur")+pLine("qr","Reverse");
+    host.innerHTML=pLine("qn","Normale")+pLine("qr","Reverse");
     host.querySelectorAll("[data-pown]").forEach(cb=>cb.onchange=ev=>{
       S(n)[cb.dataset.pown]=ev.target.checked?1:0; save(); paintOwn(); render();
     });
@@ -1435,7 +1573,15 @@ function close(){
   document.getElementById("scrim").classList.remove("open");
 }
 document.getElementById("scrim").onclick=close;
-document.addEventListener("keydown",e=>{ if(e.key==="Escape") close(); });
+document.addEventListener("keydown",e=>{
+  const lb=document.getElementById("lbox");
+  if(e.key==="Escape"){ if(lb && lb.classList.contains("open")) lb.classList.remove("open"); else close(); return; }
+  /* flèches ← → : carte précédente / suivante (sauf quand on tape dans un champ) */
+  if((e.key==="ArrowLeft"||e.key==="ArrowRight") && current && document.getElementById("panel").classList.contains("open")
+     && !/^(INPUT|SELECT|TEXTAREA)$/.test((e.target.tagName||""))){
+    e.preventDefault(); stepCard(e.key==="ArrowRight"?1:-1);
+  }
+});
 
 /* ---------- import / export ---------- */
 function toast(msg){
@@ -1827,11 +1973,14 @@ function tradeText(items){ return items.map(it=>`${it.c.n} · ${it.c.nom} — ${
 function renderCompare(){
   const host=document.getElementById("out");
   if(!FRIENDS.length){
-    host.innerHTML=`<div class="empty"><b>Aucun ami importé</b>
-      Demande à tes amis d'exporter leur collection (bouton « Exporter mes données » dans la roue crantée),
-      puis importe leur(s) fichier(s) ici pour comparer vos collections.<br><br>
-      <button class="btn primary" id="addFriends">Importer des amis</button></div>`;
+    host.innerHTML=`<div class="empty"><b>Aucun ami pour l'instant</b>
+      Demande à un ami de t'envoyer son lien (chez lui : Comparer, « Partager ma collection ») : en l'ouvrant,
+      il apparaît ici tout seul. Envoie-lui le tien de la même façon.<br>
+      Tu peux aussi importer le fichier qu'il a exporté (roue crantée, « Exporter mes données »).<br><br>
+      <button class="btn primary" id="shareMine">Partager ma collection</button>
+      <button class="btn" id="addFriends">Importer un fichier</button></div>`;
     document.getElementById("addFriends").onclick=()=>document.getElementById("friendFile").click();
+    document.getElementById("shareMine").onclick=openShare;
     return;
   }
   if(cmpFriend>=FRIENDS.length || cmpFriend<0) cmpFriend=0;
@@ -1864,7 +2013,8 @@ function renderCompare(){
   host.innerHTML=`<div class="cmpwrap">
     <div class="xchips">
       ${FRIENDS.map((x,i)=>`<button class="chip" data-f="${i}" aria-pressed="${i===cmpFriend}">${cmpEsc(x.name)}</button>`).join("")}
-      <button class="chip" id="addFriends">+ Importer un ami</button>
+      <button class="chip" id="addFriends">+ Importer un fichier</button>
+      <button class="chip" id="shareMine">Partager ma collection</button>
     </div>
     <div class="minis">
       <div class="stat"><b>${theirN}</b><span>cartes chez ${nm}</span></div>
@@ -1897,6 +2047,7 @@ function renderCompare(){
     copyText(tradeText(items), `${items.length} carte(s) copiée(s)`);
   });
   document.getElementById("addFriends").onclick=()=>document.getElementById("friendFile").click();
+  document.getElementById("shareMine").onclick=openShare;
   document.getElementById("copyTrade").onclick=()=>{
     const lines=[`Échange avec ${f.name} :`,"",
       `Je peux te donner (${give.length}) :`, ...(give.length?[tradeText(give)]:["—"]), "",
@@ -1904,8 +2055,98 @@ function renderCompare(){
     copyText(lines.join("\n"), `Résumé avec ${f.name} copié`);
   };
   document.getElementById("removeFriend").onclick=()=>{
-    FRIENDS.splice(cmpFriend,1); cmpFriend=0; cmpMore={give:false,ask:false}; renderCompare();
+    FRIENDS.splice(cmpFriend,1); cmpFriend=0; cmpMore={give:false,ask:false}; saveFriends(); renderCompare();
   };
+}
+
+/* ---------- partage par lien ---------- */
+const b64u={
+  enc:b=>{ let s=""; b.forEach(x=>{ s+=String.fromCharCode(x); }); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); },
+  dec:t=>{ t=t.replace(/-/g,"+").replace(/_/g,"/"); while(t.length%4) t+="="; return Uint8Array.from(atob(t),ch=>ch.charCodeAt(0)); }
+};
+/* « z » = compressé, « r » = brut (si le navigateur ne sait pas compresser) */
+async function packShare(obj){
+  const raw=new TextEncoder().encode(JSON.stringify(obj));
+  if(typeof CompressionStream==="function"){
+    try{
+      const st=new Blob([raw]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+      return "z"+b64u.enc(new Uint8Array(await new Response(st).arrayBuffer()));
+    }catch(e){}
+  }
+  return "r"+b64u.enc(raw);
+}
+async function unpackShare(t){
+  const bytes=b64u.dec(t.slice(1));
+  let raw=bytes;
+  if(t[0]==="z"){
+    const st=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    raw=new Uint8Array(await new Response(st).arrayBuffer());
+  }else if(t[0]!=="r") throw new Error("format");
+  return JSON.parse(new TextDecoder().decode(raw));
+}
+async function shareLink(name){
+  const pack=await packShare({v:1,p:String(name||"").trim().slice(0,30),c:compactData(store)});
+  return location.href.split("#")[0]+"#ami="+pack;
+}
+function openShare(){
+  current=null;
+  let pseudo=""; try{ pseudo=localStorage.getItem(PSKEY)||""; }catch(e){}
+  const p=document.getElementById("panel");
+  p.style.setProperty("--essence","var(--neutre)");
+  p.innerHTML=`<button class="close" id="pClose" aria-label="Fermer">×</button>
+    <div class="pnum">Partage</div>
+    <h2>Partager ma collection</h2>
+    <div class="form">
+      <p style="margin:0">Envoie ce lien à un ami qui utilise le site : en l'ouvrant, il voit tout de suite ce que tu peux lui donner
+        et ce que tu peux lui demander. Le lien ne contient que tes cartes et leurs quantités, pas tes prix ni tes notes.</p>
+      <label>Ton prénom (affiché chez ton ami)<input id="shName" type="text" maxlength="30" autocomplete="off" placeholder="Romain" value="${cmpEsc(pseudo)}"></label>
+      <label>Lien<textarea id="shLink" rows="4" readonly></textarea></label>
+      <div class="pair">
+        <button class="btn primary" id="shCopy">Copier le lien</button>
+        <button class="btn" id="shSend"${navigator.share?"":" hidden"}>Envoyer…</button>
+      </div>
+      <p class="hint">Le lien est une photo de ta collection à cet instant : si tu ajoutes des cartes, crée-en un nouveau.</p>
+    </div>`;
+  const nm=document.getElementById("shName"), box=document.getElementById("shLink");
+  let seq=0;
+  const refresh=async()=>{
+    const my=++seq, l=await shareLink(nm.value);
+    if(my===seq) box.value=l;
+    try{ localStorage.setItem(PSKEY, nm.value.trim()); }catch(e){}
+  };
+  nm.oninput=refresh;
+  box.onclick=()=>box.select();
+  document.getElementById("shCopy").onclick=async()=>{
+    if(!nm.value.trim()){ toast("Écris d'abord ton prénom"); nm.focus(); return; }
+    await refresh(); copyText(box.value,"Lien copié : colle-le dans un message");
+  };
+  const send=document.getElementById("shSend");
+  send.onclick=async()=>{
+    if(!nm.value.trim()){ toast("Écris d'abord ton prénom"); nm.focus(); return; }
+    await refresh();
+    try{ await navigator.share({title:"Ma collection Gentle Mates TCG", text:"Voilà ma collection, compare-la avec la tienne :", url:box.value}); }catch(e){}
+  };
+  refresh();
+  document.getElementById("pClose").onclick=close;
+  p.classList.add("open"); document.getElementById("scrim").classList.add("open");
+}
+/* ouverture d'un lien d'ami : #ami=… dans l'adresse. Rend l'index de l'ami ajouté, ou -1. */
+async function importFriendFromHash(){
+  const h=location.hash||"";
+  if(!h.startsWith("#ami=")) return -1;
+  const clean=()=>{ try{ history.replaceState(null,"",location.href.split("#")[0]); }catch(e){} };
+  try{
+    const j=await unpackShare(h.slice(5));
+    if(!j || typeof j.c!=="object" || Array.isArray(j.c)) throw new Error("contenu");
+    const name=String(j.p||"").trim().slice(0,30)||"Ami";
+    const data=expandData(j.c);
+    let i=FRIENDS.findIndex(f=>f.name===name);
+    if(i>=0) FRIENDS[i]={name,data}; else { FRIENDS.push({name,data}); i=FRIENDS.length-1; }
+    saveFriends(); clean(); toast(`Collection de ${name} ajoutée`);
+    return i;
+  }catch(e){
+    clean(); toast("Ce lien de partage est illisible"); return -1;
+  }
 }
 document.getElementById("friendFile").onchange=e=>{
   const files=[...e.target.files]; if(!files.length) return;
@@ -1917,10 +2158,11 @@ document.getElementById("friendFile").onchange=e=>{
         const j=JSON.parse(r.result);
         const d=j.data||j;
         if(typeof d!=="object" || Array.isArray(d)) throw 0;
-        FRIENDS.push({name:f.name.replace(/\.json$/i,""), data:d});
+        FRIENDS.push({name:f.name.replace(/\.json$/i,"").slice(0,30), data:d});
       }catch(err){ toast("Fichier illisible : "+f.name); }
       done++;
       if(done===files.length){
+        saveFriends();
         cmpFriend=Math.max(0,Math.min(firstNew,FRIENDS.length-1)); cmpMore={give:false,ask:false};
         setTab("compare"); toast(FRIENDS.length+" ami(s) chargé(s)");
       }
@@ -1976,12 +2218,18 @@ armSecretUnlock(document.getElementById("homeBrand"));
 armSecretUnlock(document.getElementById("homeTitle"));
 armSecretUnlock(document.getElementById("title"));
 if(savedExt && extsList().includes(savedExt)) enterExt(savedExt); else goHome();
+/* lien d'ami ouvert : on va droit à l'écran Comparer */
+importFriendFromHash().then(i=>{
+  if(i<0) return;
+  if(document.getElementById("app").hidden) enterExt(extsList().includes("Tout Commence Ici")?"Tout Commence Ici":extsList()[0]);
+  cmpFriend=i; cmpMore={give:false,ask:false}; setTab("compare");
+});
 </script>
 </body>
 </html>
 """
 
-HTML = HTML.replace("__DATA__", DATA).replace("__TOTAL__", str(len(cards)))
+HTML = HTML.replace("__DATA__", DATA).replace("__TEXTES__", TEXTES_JSON).replace("__TOTAL__", str(len(cards)))
 TEMPLATE = HTML                       # gabarit avec __IMAGES__ encore en place
 APP = HTML.replace("__IMAGES__", "{}")
 
