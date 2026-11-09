@@ -87,6 +87,8 @@ META = [
 SECRETES_REVELEES = {
     "123": ("Joueur", "Orange"),   # Le Quatrième du Nom
     "125": ("Joueur", "Mauve"),    # 6W26L
+    "124": ("Joueur", "Violette"),             # Brawks Trop Déter — visuel dévoilé le 09/11/2026
+    "126": ("Moment / Instant", "Neutre"),     # GP Explorer II — visuel dévoilé le 09/11/2026
 }
 
 RARETE = {"ES": "Essence", "C": "Commune", "PC": "Peu commune", "R": "Rare",
@@ -301,7 +303,7 @@ lines = [
     ("", None),
     ("Ce qui est déjà rempli", "h"),
     ("Les 127 cartes du set, avec leur numéro officiel, leur nom, leur rareté, leur type et leur essence. Le tout relevé sur gentlemates.com/tcg-cards le 14/09/2026, une fois toutes les cartes révélées.", None),
-    ("Les cartes 123 à 127 sont les secrètes, numérotées 123/122 à 127/122 : le set compte 122 cartes plus 5 secrètes. Numérotation et noms confirmés pour les 5, y compris la 123 (« Le Quatrième du Nom »), par la checklist officielle du jeu. Les secrètes 123 et 125 sont dévoilées (type et essence renseignés) ; les 124, 126 et 127 restent à compléter.", None),
+    ("Les cartes 123 à 127 sont les secrètes, numérotées 123/122 à 127/122 : le set compte 122 cartes plus 5 secrètes. Numérotation et noms confirmés pour les 5, y compris la 123 (« Le Quatrième du Nom »), par la checklist officielle du jeu. Les secrètes 123, 124, 125 et 126 sont dévoilées (type et essence renseignés) ; la 127 reste à compléter.", None),
     ("Après la cardlist, six promos numérotées P01 à P06 : elles ne sortent pas des boosters. P01 et P02 étaient vendues uniquement au Major de Paris, les autres viennent des starters et du Pack Fondateur. Ajoute une ligne si tu en trouves d'autres, le tableau s'étend tout seul.", None),
     ("", None),
     ("Ce qu'il te reste à renseigner", "h"),

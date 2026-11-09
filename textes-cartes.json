@@ -1858,6 +1858,24 @@
   "illustrateur": "Levinky",
   "stat": "Def 160"
  },
+ "124": {
+  "attaques": [
+   {
+    "degats": "110",
+    "nom": "Sermont",
+    "texte": null
+   }
+  ],
+  "capacites": [
+   {
+    "motcle": "SIGNATURE",
+    "texte": "Lorsque votre adversaire récupère un PV suite à l’attaque de ce Joueur, désengagez tous vos Joueurs."
+   }
+  ],
+  "citation": "Je vais aller le chercher après.",
+  "illustrateur": "Tan Zhi Hui",
+  "stat": "Def 130"
+ },
  "125": {
   "attaques": [
    {
@@ -1875,6 +1893,16 @@
   "citation": "Je reviens mais à une condition...",
   "illustrateur": "Gobli Prin",
   "stat": "Def 60"
+ },
+ "126": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Les CEO choisissent chacun 2 de leurs Joueurs et récupèrent les autres en main. Vous ne pouvez plus jouer de Joueur pour le reste de ce tour."
+   }
+  ],
+  "citation": "On s’émerveille, yeux dans les yeux",
+  "illustrateur": "Hugo Lucas"
  },
  "P01": {
   "capacites": [
