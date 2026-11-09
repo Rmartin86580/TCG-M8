@@ -1904,6 +1904,16 @@
   "citation": "On s’émerveille, yeux dans les yeux",
   "illustrateur": "Hugo Lucas"
  },
+ "127": {
+  "capacites": [
+   {
+    "motcle": null,
+    "texte": "Mélangez 2 de vos Essences Mauves dans votre Réserve pour doubler la valeur de la première attaque que vous déclenchez ce tour."
+   }
+  ],
+  "citation": "Ça aurait dû être La Rochelle...",
+  "illustrateur": "Dexter Maurer"
+ },
  "P01": {
   "capacites": [
    {

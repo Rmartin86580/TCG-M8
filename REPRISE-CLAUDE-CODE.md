@@ -89,8 +89,10 @@ passer `node --check`. Le HTML fait ~1000 lignes de JS, une erreur casse tout en
   `dos-cartes/123.png` et `125.png` mis à jour avec leur symbole d'essence. **Le 09/11/2026, la 124
   (Brawks Trop Déter — Joueur, Violette) et la 126 (GP Explorer II — Moment / Instant, Neutre) ont été
   dévoilées** : images remplacées, `SECRETES_REVELEES` complété, texte ajouté dans `textes-cartes.json`
-  (les dos `dos-cartes/124.png` et `126.png` n'ont pas encore leur symbole d'essence). Reste cachée :
-  la 127 (le site affiche un visuel générique « Secrète ParisGentleMates ») — pour la dévoiler, ajouter leurs entrées dans `SECRETES_REVELEES`, remplacer
+  (les dos `dos-cartes/124.png`, `126.png` et `127.png` n'ont pas encore leur symbole d'essence). **La 127
+  (Paris Gentle Mates — Moment / Instant, Mauve) l'a été aussi le 09/11/2026** : son vrai visuel était sur
+  la page sous le nom `M8_TCG_Secrete_ParisGentleMates.avif` (2976×4157, réduit à 1000×1397). Toutes les
+  secrètes sont donc dévoilées. Procédure pour une future carte cachée : ajouter leurs entrées dans `SECRETES_REVELEES`, remplacer
   leur image dans `images-cartes/`, relancer `build4.py` puis `build_html.py`. Les visuels
   viennent de la page gentlemates.com/tcg-cards (images servies par Supabase, le nom de
   fichier encode `numéro_rareté_type_essence_nom`).
@@ -358,7 +360,7 @@ Pas de serveur, pas de jeton ; l'import par fichier JSON reste possible.
 **Texte des cartes dans la fiche (28/10/2026).** Le texte (stat Def/Att, attaques + dégâts, capacités avec
 mot-clé, citation, illustrateur) n'existe nulle part en données : il est imprimé sur les visuels. Il a été
 recopié en lisant les 131 images (6 agents en parallèle, une carte vérifiée à l'œil) dans
-`textes-cartes.json` (clé = numéro ; 130 cartes, absentes : 127 encore floue ; P03/P04 sans
+`textes-cartes.json` (clé = numéro ; 131 cartes (toutes les numérotées 001 à 127 + P01, P02, P05, P06) ; P03/P04 sans
 image). `build_html.py` l'injecte (`__TEXTES__` → `TEXTES`), `textBlockHTML(n)` l'affiche dans la fiche et
 `cardText(n)` fait que la barre de recherche cherche aussi dans ce texte. Les coûts d'attaque (symboles
 d'essence) ne sont pas transcrits ; les symboles au milieu d'une phrase ont été retirés. Pour une nouvelle
