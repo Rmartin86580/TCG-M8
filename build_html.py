@@ -466,7 +466,9 @@ select.tag.ess option{background:var(--surface-2); color:var(--ink)}
 .lbox{position:fixed; inset:0; z-index:70; background:rgba(8,5,14,.94); display:none; place-items:center;
   padding:16px; cursor:zoom-out}
 .lbox.open{display:grid}
-.lbox img{max-width:100%; max-height:100%; object-fit:contain; border-radius:10px}
+/* taille en unités d'écran (un pourcentage ne limite pas la hauteur dans une grille) : la carte entière tient toujours */
+.lbox img{max-width:calc(100vw - 32px); max-height:calc(100vh - 32px); max-height:calc(100dvh - 32px);
+  width:auto; height:auto; object-fit:contain; border-radius:10px}
 .preview span{color:var(--dim); font-size:13px; padding:0 20px; text-align:center}
 .pblock{
   background:linear-gradient(160deg, var(--bg-2), var(--surface) 140%); border:1px solid var(--line);
